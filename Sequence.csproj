@@ -18,7 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="bit101.jpg" />
+    <Resource Include="Resources\bit101.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\Commands\Base\" />
+    <Folder Include="ViewModels\Base\" />
   </ItemGroup>
 
 </Project>

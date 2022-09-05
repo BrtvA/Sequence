@@ -11,7 +11,7 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseMove"
         WindowStartupLocation="CenterScreen"
-        Icon="/bit101.jpg">
+        Icon="/Resources/bit101.jpg">
     <Border CornerRadius="15"
             BorderThickness="5">
         <Border.BorderBrush>
@@ -74,7 +74,7 @@
                         FontFamily="Montserrat"
                         Cursor="Hand"
                         Grid.Column="1"
-                        Click="MinimizeButton_Click">
+                        Click="">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
@@ -105,7 +105,7 @@
                         FontFamily="Montserrat"
                         Cursor="Hand"
                         Grid.Column="2"
-                        Click="CloseButton_Click">
+                        Click="">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#DA34AE"/>
@@ -142,7 +142,7 @@
                         Height="30"
                         Width="120"
                         Margin="20,10,0,0"
-                        Click="OpenFileButton_Click">
+                        Click="">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
@@ -192,7 +192,7 @@
                          Width="210"
                          Margin="350,-29,0,0"
                          SelectedIndex="0"
-                         SelectionChanged="ModeBox_SelectionChanged">
+                         SelectionChanged="">
                     <ComboBoxItem Content="Intensity fluctuation"/>
                     <ComboBoxItem Content="Bit sequence"/>
                     <ComboBox.Resources>
@@ -314,7 +314,7 @@
                         Height="30"
                         Width="150"
                         Margin="20,10,0,0"
-                        Click="ExecuteTestButton_Click"
+                        Click=""
                         IsEnabled="False">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -349,7 +349,7 @@
                         Height="30"
                         Width="150"
                         Margin="200,-29,0,0"
-                        Click="SaveButton_Click"
+                        Click=""
                         IsEnabled="False">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -806,7 +806,7 @@
                         Height="30"
                         Width="150"
                         Margin="20,10,0,0"
-                        Click="SelectTestButton_Click">
+                        Click="">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
@@ -839,7 +839,7 @@
                         Height="30"
                         Width="150"
                         Margin="200,-29,0,0"
-                        Click="ResetButton_Click">
+                        Click="">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
