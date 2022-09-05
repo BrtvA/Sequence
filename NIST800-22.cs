@@ -13,11 +13,14 @@ namespace Sequence
         //Тесты на случайность выполнены согласно методике Национального Института Стандартных Технологий NIST 800-22
         //https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-22r1a.pdf
 
-        internal protected static string sequence { get; set; }
-        internal protected static int strLength { get; set; }
-        private static double alfa = 0.01;
+        internal protected static string sequence { get; set; } //битовая последовательность
+        internal protected static int strLength { get; set; } //длина битовой последовательности
+        private static readonly double alfa = 0.01; //уровень значимости
 
-        //Frequency (Monobit) Test
+        /// <summary>
+        /// Frequency (Monobit) Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test1()
         {
             //int strLength = sequence.Length;
@@ -29,7 +32,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Frequency Test within a Block
+        /// <summary>
+        /// Frequency Test within a Block
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test2()
         {
             //string sequence = "1100100100001111110110101010001000100001011010001100001000110100110001001100011001100010100010111000";
@@ -57,7 +63,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Runs Test
+        /// <summary>
+        /// Runs Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test3()
         {
             //string sequence = "1100100100001111110110101010001000100001011010001100001000110100110001001100011001100010100010111000";
@@ -86,7 +95,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Test for the Longest Run of Ones in a Block
+        /// <summary>
+        /// Test for the Longest Run of Ones in a Block
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test4()
         {
             //string sequence = "11001100000101010110110001001100111000000000001001001101010100010001001111010110100000001101011111001100111001101101100010110010";
@@ -162,7 +174,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Binary Matrix Rank Test
+        /// <summary>
+        /// Binary Matrix Rank Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test5()
         {
             //string sequence = "01011001001010101101";
@@ -310,7 +325,10 @@ namespace Sequence
 
         }
 
-        //Discrete Fourier Transform (Spectral) Test
+        /// <summary>
+        /// Discrete Fourier Transform (Spectral) Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test6()
         {
             //string sequence = "1100100100001111110110101010001000100001011010001100001000110100110001001100011001100010100010111000";
@@ -356,7 +374,10 @@ namespace Sequence
 
         }
 
-        //Non-overlapping Template Matching Test
+        /// <summary>
+        /// Non-overlapping Template Matching Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test7()
         {
             //string sequence = "1010010010 1110010110";
@@ -409,7 +430,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Overlapping Template Matching Test
+        /// <summary>
+        /// Overlapping Template Matching Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test8()
         {
             //string sequence = "10111011110010110100011100101110111110000101101001";
@@ -473,7 +497,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Maurer's "Universal Statistical" Test
+        /// <summary>
+        /// Maurer's "Universal Statistical" Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test9()
         {
             //string Sequence = "01011010011101010111";
@@ -589,7 +616,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Linear Complexity Test
+        /// <summary>
+        /// Linear Complexity Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double, bool> Test10()
         {
             //int strLength = sequence.Length;
@@ -637,7 +667,10 @@ namespace Sequence
 
         }
 
-        //Serial Test
+        /// <summary>
+        /// Serial Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double[], bool> Test11() 
         {
             //string sequence = "0011011101";
@@ -704,7 +737,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Approximate Entropy Test
+        /// <summary>
+        /// Approximate Entropy Test
+        /// </summary>
+        /// <returns>A double[] and boolean</returns>
         internal protected static Tuple<double, bool> Test12()
         {
             //string sequence = "1100100100001111110110101010001000100001011010001100001000110100110001001100011001100010100010111000";
@@ -767,7 +803,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Cumulative Sums (Cusum) Test
+        /// <summary>
+        /// Cumulative Sums (Cusum) Test
+        /// </summary>
+        /// <returns>A double and boolean</returns>
         internal protected static Tuple<double[], bool> Test13()
         {
             //string sequence = "1100100100001111110110101010001000100001011010001100001000110100110001001100011001100010100010111000";
@@ -831,7 +870,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Random Excursions Test
+        /// <summary>
+        /// Random Excursions Test
+        /// </summary>
+        /// <returns>A double[] and boolean</returns>
         internal protected static Tuple<double[], bool> Test14()
         {
             //string sequence = "0110110101";
@@ -936,7 +978,10 @@ namespace Sequence
             return Tuple.Create(pValue, isRandom);
         }
 
-        //Random Excursions Variant Test 
+        /// <summary>
+        /// Random Excursions Variant Test 
+        /// </summary>
+        /// <returns>A double[] and boolean</returns>
         internal protected static Tuple<double[], bool> Test15()
         {
             //string sequence = "0110110101";
