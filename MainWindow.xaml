@@ -302,41 +302,6 @@
             </StackPanel>
 
             <StackPanel Grid.Row="4">
-                <Button x:Name="getSequenceButton" 
-                        BorderThickness="0"
-                        Foreground="White"
-                        FontSize="20"
-                        Content="Get Sequence"
-                        FontFamily="Montserrat"
-                        Cursor="Hand"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Height="30"
-                        Width="150"
-                        Margin="20,10,0,0"
-                        Click="AsyncGetSequenceButton_Click"
-                        IsEnabled="False">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#28AEED"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#1073D5"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="5"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
                 <Button x:Name="executeTestButton" 
                         BorderThickness="0"
                         Foreground="White"
@@ -348,7 +313,7 @@
                         VerticalAlignment="Center"
                         Height="30"
                         Width="150"
-                        Margin="200,-29,0,0"
+                        Margin="20,10,0,0"
                         Click="ExecuteTestButton_Click"
                         IsEnabled="False">
                     <Button.Style>
@@ -383,7 +348,7 @@
                         VerticalAlignment="Center"
                         Height="30"
                         Width="150"
-                        Margin="380,-29,0,0"
+                        Margin="200,-29,0,0"
                         Click="SaveButton_Click"
                         IsEnabled="False">
                     <Button.Style>
@@ -896,7 +861,6 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
-
         </Grid>
     </Border>
 </Window>
