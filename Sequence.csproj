@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="bit101.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>bin\Debug\net6.0-windows\MathNet.Numerics.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="bit101.jpg" />
+  </ItemGroup>
+
+</Project>
