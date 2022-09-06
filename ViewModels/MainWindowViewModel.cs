@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
 using Sequence.Infrastructure.Commands;
 using Sequence.ViewModels.Base;
 
@@ -25,25 +26,32 @@ namespace Sequence.ViewModels
         #endregion
 
         #region Window State
-
-        /// <summary>Состояние окна</summary>
         private WindowState _windowState = WindowState.Normal;
-
+        /// <summary>Состояние окна</summary>
         public WindowState WindowState
         {
             get => _windowState;
             set => Set(ref _windowState, value);
         }
-
         #endregion
 
-        #region Mouse e
-        /// <summary>Windows Tag</summary>
-        private MouseButtonEventArgs _e;
-        public MouseButtonEventArgs E
+        #region WorkMode
+        private bool _workMode;
+        /// <summary>Состояние окна</summary>
+        public bool WorkMode
         {
-            get => _e;
-            set => Set(ref _e, value);
+            get => _workMode;
+            set => Set(ref _workMode, value);
+        }
+        #endregion
+
+        #region openFileTxt
+        private string _openFileTxt;
+        ///<summary>openFileTxt</summary>
+        public string OpenFileTxt
+        {
+            get => _openFileTxt;
+            set => Set(ref _openFileTxt, value);
         }
         #endregion
 
@@ -69,6 +77,20 @@ namespace Sequence.ViewModels
         private void OnMinimizeApplicationCommandExecuted(object p) => WindowState = WindowState.Minimized;
         #endregion
 
+        #region OpenFileCommand
+        public ICommand OpenFileCommand { get; }
+
+        private bool CanOpenFileCommanddExecute(object p) => true;
+
+        private void OnOpenFileCommandExecuted(object p)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            file.Filter = "Text files(*.csv)|*.csv";
+            file.ShowDialog();
+            OpenFileTxt = file.FileName;
+        }
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
@@ -76,7 +98,7 @@ namespace Sequence.ViewModels
             #region Команды
             CloseApplicationCommand = new ActionCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             MinimizeApplicationCommand = new ActionCommand(OnMinimizeApplicationCommandExecuted,CanMinimizeApplicationCommandExecute);
-            ///MouseMoveCommand = new ActionCommand(OnMouseMoveCommandExecuted, CanMouseMoveCommandExecute);
+            OpenFileCommand = new ActionCommand(OnOpenFileCommandExecuted, CanOpenFileCommanddExecute);
             #endregion
         }
     }

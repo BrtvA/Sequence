@@ -166,6 +166,7 @@
                         Height="30"
                         Width="120"
                         Margin="20,10,0,0"
+                        Command="{Binding OpenFileCommand}"
                         Style="{StaticResource BlueButton}"
                         Template="{StaticResource BlueButtonControl}">
                 </Button>
@@ -183,7 +184,8 @@
                          Height="30"
                          Width="500"
                          Margin="170,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding OpenFileTxt}"/>
 
                 <ComboBox x:Name="modeBox"
                          BorderThickness="2"
