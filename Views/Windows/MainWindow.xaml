@@ -4,14 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sequence"
+        
+        xmlns:vm="clr-namespace:Sequence.ViewModels"
+        xmlns:cmd="clr-namespace:Sequence.Infrastructure.Commands"
         mc:Ignorable="d"
-        Title="Sequence" Height="720" Width="1280"
+        Title="{Binding Title}" Height="720" Width="1280"
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
-        MouseDown="Window_MouseMove"
+        
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/bit101.jpg">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Border CornerRadius="15"
             BorderThickness="5">
         <Border.BorderBrush>
@@ -73,8 +79,10 @@
                         FontWeight="Bold"
                         FontFamily="Montserrat"
                         Cursor="Hand"
-                        Grid.Column="1"
-                        Click="">
+                        Grid.Column="1">
+                    <Button.Command>
+                        <cmd:MinimizeApplicationCommand/>
+                    </Button.Command>
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
@@ -104,8 +112,10 @@
                         FontSize="16"
                         FontFamily="Montserrat"
                         Cursor="Hand"
-                        Grid.Column="2"
-                        Click="">
+                        Grid.Column="2">
+                    <Button.Command>
+                        <cmd:CloseApplicationCommand/>
+                    </Button.Command>
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#DA34AE"/>
@@ -142,7 +152,7 @@
                         Height="30"
                         Width="120"
                         Margin="20,10,0,0"
-                        Click="">
+                        >
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
@@ -192,7 +202,7 @@
                          Width="210"
                          Margin="350,-29,0,0"
                          SelectedIndex="0"
-                         SelectionChanged="">
+                         >
                     <ComboBoxItem Content="Intensity fluctuation"/>
                     <ComboBoxItem Content="Bit sequence"/>
                     <ComboBox.Resources>
@@ -314,7 +324,6 @@
                         Height="30"
                         Width="150"
                         Margin="20,10,0,0"
-                        Click=""
                         IsEnabled="False">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -349,7 +358,6 @@
                         Height="30"
                         Width="150"
                         Margin="200,-29,0,0"
-                        Click=""
                         IsEnabled="False">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -806,7 +814,7 @@
                         Height="30"
                         Width="150"
                         Margin="20,10,0,0"
-                        Click="">
+                        >
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
@@ -839,7 +847,7 @@
                         Height="30"
                         Width="150"
                         Margin="200,-29,0,0"
-                        Click="">
+                        >
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
