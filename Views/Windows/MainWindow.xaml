@@ -18,6 +18,23 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <Style x:Key="BlueButton" TargetType="Button">
+            <Setter Property="Background" Value="#28AEED"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1073D5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <ControlTemplate x:Key="BlueButtonControl" TargetType="Button">
+            <Border CornerRadius="5"
+                    Background="{TemplateBinding Background}">
+                  <ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
     <Border CornerRadius="15"
             BorderThickness="5">
         <Border.BorderBrush>
@@ -148,26 +165,8 @@
                         Height="30"
                         Width="120"
                         Margin="20,10,0,0"
-                        >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#28AEED"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#1073D5"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="5"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                        Style="{StaticResource BlueButton}"
+                        Template="{StaticResource BlueButtonControl}">
                 </Button>
 
                 <TextBox x:Name="openFileText"
@@ -320,26 +319,9 @@
                         Height="30"
                         Width="150"
                         Margin="20,10,0,0"
-                        IsEnabled="False">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#28AEED"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#1073D5"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="5"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                        IsEnabled="False"
+                        Style="{StaticResource BlueButton}"
+                        Template="{StaticResource BlueButtonControl}">
                 </Button>
 
                 <Button x:Name="saveButton" 
@@ -354,26 +336,9 @@
                         Height="30"
                         Width="150"
                         Margin="200,-29,0,0"
-                        IsEnabled="False">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#28AEED"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#1073D5"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="5"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                        IsEnabled="False"
+                        Style="{StaticResource BlueButton}"
+                        Template="{StaticResource BlueButtonControl}">
                 </Button>
             </StackPanel>
 
@@ -810,26 +775,8 @@
                         Height="30"
                         Width="150"
                         Margin="20,10,0,0"
-                        >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#28AEED"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#1073D5"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="5"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                        Style="{StaticResource BlueButton}"
+                        Template="{StaticResource BlueButtonControl}">
                 </Button>
                 <Button x:Name="resetButton" 
                         BorderThickness="0"
@@ -843,26 +790,8 @@
                         Height="30"
                         Width="150"
                         Margin="200,-29,0,0"
-                        >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#28AEED"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#1073D5"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="5"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                        Style="{StaticResource BlueButton}"
+                        Template="{StaticResource BlueButtonControl}">
                 </Button>
             </StackPanel>
         </Grid>
