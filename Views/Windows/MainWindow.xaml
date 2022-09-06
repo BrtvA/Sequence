@@ -12,7 +12,7 @@
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
-        
+        WindowState="{Binding WindowState, Mode=TwoWay}"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/bit101.jpg">
     <Window.DataContext>
@@ -79,10 +79,8 @@
                         FontWeight="Bold"
                         FontFamily="Montserrat"
                         Cursor="Hand"
-                        Grid.Column="1">
-                    <Button.Command>
-                        <cmd:MinimizeApplicationCommand/>
-                    </Button.Command>
+                        Grid.Column="1"
+                        Command="{Binding MinimizeApplicationCommand}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
@@ -112,10 +110,8 @@
                         FontSize="16"
                         FontFamily="Montserrat"
                         Cursor="Hand"
-                        Grid.Column="2">
-                    <Button.Command>
-                        <cmd:CloseApplicationCommand/>
-                    </Button.Command>
+                        Grid.Column="2"
+                        Command="{Binding CloseApplicationCommand}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#DA34AE"/>

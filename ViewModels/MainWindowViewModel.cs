@@ -14,22 +14,62 @@ namespace Sequence.ViewModels
     {
         #region Заголовок окна
 
-        private string _Title = "Sequence";
+        private string _title = "Sequence";
 
         /// <summary>Заголовок окна</summary>
         public string Title
         {
-            get => _Title;
-            set => Set(ref _Title, value);
+            get => _title;
+            set => Set(ref _title, value);
+        }
+        #endregion
+
+        #region Window State
+
+        /// <summary>Состояние окна</summary>
+        private WindowState _windowState = WindowState.Normal;
+
+        public WindowState WindowState
+        {
+            get => _windowState;
+            set => Set(ref _windowState, value);
         }
 
         #endregion
 
-        
+
+        #region Команды
+
+        #region CloseApplicationCommand
+        public ICommand CloseApplicationCommand { get; }
+
+        private bool CanCloseApplicationCommandExecute(object p) => true;
+
+        private void OnCloseApplicationCommandExecuted(object p)
+        {
+            Application.Current.Shutdown();
+        }
+        #endregion
+
+        #region MinimizeApplicationCommand
+        public ICommand MinimizeApplicationCommand { get; }
+
+        private bool CanMinimizeApplicationCommandExecute(object p) => true;
+
+        private void OnMinimizeApplicationCommandExecuted(object p)
+        {
+            WindowState = WindowState.Minimized;
+        }
+        #endregion
+
+        #endregion
 
         public MainWindowViewModel()
         {
-            
+            #region Команды
+            CloseApplicationCommand = new ActionCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            MinimizeApplicationCommand = new ActionCommand(OnMinimizeApplicationCommandExecuted,CanMinimizeApplicationCommandExecute);
+            #endregion
         }
     }
 }
