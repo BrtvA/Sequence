@@ -13,6 +13,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowState="{Binding WindowState, Mode=TwoWay}"
+        MouseDown="Window_MouseMove"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/bit101.jpg">
     <Window.DataContext>
@@ -30,7 +31,7 @@
         <ControlTemplate x:Key="BlueButtonControl" TargetType="Button">
             <Border CornerRadius="5"
                     Background="{TemplateBinding Background}">
-                  <ContentPresenter VerticalAlignment="Center"
+                <ContentPresenter VerticalAlignment="Center"
                                   HorizontalAlignment="Center"/>
             </Border>
         </ControlTemplate>

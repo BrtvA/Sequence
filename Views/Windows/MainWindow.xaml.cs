@@ -29,5 +29,10 @@ namespace Sequence
         {
             InitializeComponent();
         }
+
+        private void Window_MouseMove(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed) DragMove();
+        }
     }    
 }

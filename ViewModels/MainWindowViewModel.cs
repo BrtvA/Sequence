@@ -37,13 +37,13 @@ namespace Sequence.ViewModels
 
         #endregion
 
-        #region Windows Tag
+        #region Mouse e
         /// <summary>Windows Tag</summary>
-        private object _windowTag;
-        public object WindowTag
+        private MouseButtonEventArgs _e;
+        public MouseButtonEventArgs E
         {
-            get => _windowTag;
-            set => Set(ref _windowTag, value);
+            get => _e;
+            set => Set(ref _e, value);
         }
         #endregion
 
@@ -69,17 +69,6 @@ namespace Sequence.ViewModels
         private void OnMinimizeApplicationCommandExecuted(object p) => WindowState = WindowState.Minimized;
         #endregion
 
-        #region MouseMoveCommand
-        public ICommand MouseMoveCommand { get; }
-
-        private bool CanMouseMoveCommandExecute(object p) => true;
-
-        private void OnMouseMoveCommandExecuted(object p)
-        {
-            
-        }
-        #endregion
-
         #endregion
 
         public MainWindowViewModel()
@@ -87,6 +76,7 @@ namespace Sequence.ViewModels
             #region Команды
             CloseApplicationCommand = new ActionCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             MinimizeApplicationCommand = new ActionCommand(OnMinimizeApplicationCommandExecuted,CanMinimizeApplicationCommandExecute);
+            ///MouseMoveCommand = new ActionCommand(OnMouseMoveCommandExecuted, CanMouseMoveCommandExecute);
             #endregion
         }
     }
