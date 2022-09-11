@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="The.Microsoft.Expression.Interactions" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="MathNet.Numerics">
       <HintPath>bin\Debug\net6.0-windows\MathNet.Numerics.dll</HintPath>
     </Reference>

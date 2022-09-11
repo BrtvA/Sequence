@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sequence"
         
+
         xmlns:vm="clr-namespace:Sequence.ViewModels"
         xmlns:cmd="clr-namespace:Sequence.Infrastructure.Commands"
+        xmlns:ii="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="720" Width="1280"
         WindowStyle="None"
@@ -199,8 +201,12 @@
                          Height="30"
                          Width="210"
                          Margin="350,-29,0,0"
-                         SelectedIndex="0"
-                         >
+                         SelectedIndex="{Binding ModeBoxSelectedIndex}">
+                    <ii:Interaction.Triggers>
+                        <ii:EventTrigger EventName="SelectionChanged">
+                            <ii:InvokeCommandAction Command="{Binding ModeBoxSelectionChangedCommand}" />
+                        </ii:EventTrigger>
+                    </ii:Interaction.Triggers>
                     <ComboBoxItem Content="Intensity fluctuation"/>
                     <ComboBoxItem Content="Bit sequence"/>
                     <ComboBox.Resources>
@@ -291,7 +297,8 @@
                            FontFamily="Montserrat"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Margin="0,-29,0,0"/>
+                           Margin="0,-29,0,0"
+                           IsChecked="{Binding TimeLengthChecked}"/>
                 <TextBox x:Name="timeLengthText"
                          BorderThickness="2"
                          Foreground="White"
@@ -322,7 +329,7 @@
                         Height="30"
                         Width="150"
                         Margin="20,10,0,0"
-                        IsEnabled="False"
+                        IsEnabled="{Binding ExecuteTestButtonEnabled}"
                         Style="{StaticResource BlueButton}"
                         Template="{StaticResource BlueButtonControl}">
                 </Button>
@@ -339,7 +346,7 @@
                         Height="30"
                         Width="150"
                         Margin="200,-29,0,0"
-                        IsEnabled="False"
+                        IsEnabled="{Binding SaveButtonEnabled}"
                         Style="{StaticResource BlueButton}"
                         Template="{StaticResource BlueButtonControl}">
                 </Button>
