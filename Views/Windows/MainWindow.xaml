@@ -59,8 +59,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="{Binding RowPanelHeight}"/>
+                <RowDefinition Height="{Binding RowPanelHeight}"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -216,7 +216,7 @@
                 </ComboBox>
             </StackPanel>
 
-            <StackPanel x:Name="paramPanel1" Grid.Row="2">
+            <StackPanel x:Name="paramPanel1" Grid.Row="2" Visibility="{Binding ParamPanelVisibility}">
                 <TextBlock Text="ADC bit's:"
                            FontSize="20"
                            Foreground="DarkGray"
@@ -265,7 +265,7 @@
                          TextAlignment="Center"/>
             </StackPanel>
 
-            <StackPanel x:Name="paramPanel2" Grid.Row="3">
+            <StackPanel x:Name="paramPanel2" Grid.Row="3" Visibility="{Binding ParamPanelVisibility}">
                 <TextBlock Text="Shift time, ns:"
                            FontSize="20"
                            Foreground="DarkGray"
@@ -348,7 +348,8 @@
                         Margin="200,-29,0,0"
                         IsEnabled="{Binding SaveButtonEnabled}"
                         Style="{StaticResource BlueButton}"
-                        Template="{StaticResource BlueButtonControl}">
+                        Template="{StaticResource BlueButtonControl}"
+                        Visibility="{Binding ParamPanelVisibility}">
                 </Button>
             </StackPanel>
 

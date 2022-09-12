@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -241,6 +242,27 @@ namespace Sequence.ViewModels
 
         #endregion
 
+        #region ParamPanelVisibility
+        private string _paramPanelVisibility = "Visible";
+        /// <summary>Видимость ParamPanel при WorkMode = Intensity fluctuation</summary>
+        public string ParamPanelVisibility
+        {
+            get => _paramPanelVisibility;
+            set => Set(ref _paramPanelVisibility, value);
+        }
+        #endregion
+
+        #region RowPanelHeight
+        private string _rowPanelHeight = "50";
+        /// <summary>Высота ParamPanel</summary>
+        public string RowPanelHeight
+        {
+            get => _rowPanelHeight;
+            set => Set(ref _rowPanelHeight, value);
+        }
+        #endregion
+
+
         /*
         #region ModeBoxItemsSource
         private ObservableCollection<string> _modeBoxItemsSource = new ObservableCollection<string>()
@@ -297,11 +319,15 @@ namespace Sequence.ViewModels
             if (ModeBoxSelectedIndex == 0)
             {
                 WorkMode = true;
+                ParamPanelVisibility = "Visible";
+                RowPanelHeight = "50";
 
             }
             else
             {
                 WorkMode = false;
+                ParamPanelVisibility = "Hidden";
+                RowPanelHeight = "0";
             }
         }
         #endregion
