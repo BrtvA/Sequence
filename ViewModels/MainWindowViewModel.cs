@@ -48,6 +48,80 @@ namespace Sequence.ViewModels
         }
         #endregion
 
+        #region LSBTxt
+        private string _LSBTxt= "6";
+        ///<summary>LSBTxt</summary>
+        public string LSBTxt
+        {
+            get => _LSBTxt;
+            set => Set(ref _LSBTxt, value);
+        }
+        #endregion
+
+        #region TimeShiftTxt
+        private string _timeShiftTxt = "17";
+        ///<summary>TimeShiftTxt</summary>
+        public string TimeShiftTxt
+        {
+            get => _timeShiftTxt;
+            set => Set(ref _timeShiftTxt, value);
+        }
+        #endregion
+
+        #region NumberBitTxt
+        private string _numberBitTxt = "8";
+        ///<summary>NumberBitTxt</summary>
+        public string NumberBitTxt
+        {
+            get => _numberBitTxt;
+            set => Set(ref _numberBitTxt, value);
+        }
+        #endregion
+
+        #region TimeLengthTxt
+        private string _timeLengthTxt = "66632";
+        ///<summary>TimeLengthTxt</summary>
+        public string TimeLengthTxt
+        {
+            get => _timeLengthTxt;
+            set => Set(ref _timeLengthTxt, value);
+        }
+        #endregion
+
+        #region BitLengthTxt
+        private string _bitLengthTxt;
+        ///<summary>BitLengthTxt</summary>
+        public string BitLengthTxt
+        {
+            get => _bitLengthTxt;
+            set => Set(ref _bitLengthTxt, value);
+        }
+        #endregion
+
+        #region TestTxt
+
+        #region Test1Txt
+        private string _test1Txt;
+        ///<summary>pValue для Test1</summary>
+        public string Test1Txt
+        {
+            get => _test1Txt;
+            set => Set(ref _test1Txt, value);
+        }
+        #endregion
+
+        #region Test2Txt
+        private string _test2Txt;
+        ///<summary>pValue для Test2</summary>
+        public string Test2Txt
+        {
+            get => _test2Txt;
+            set => Set(ref _test1Txt, value);
+        }
+        #endregion
+
+        #endregion
+
         #region WorkMode
         private bool _workMode = true;
         /// <summary>Состояние окна</summary>
@@ -90,23 +164,35 @@ namespace Sequence.ViewModels
 
         #region TestChecked
 
+        private bool[] _testChecked = new bool[] { 
+            false, false, false, false, false,
+            false, false, false, false, false,
+            false, false, false, false, false};
+        /// <summary>Активация test1Box</summary>
+        public bool[] TestChecked
+        {
+            get => _testChecked;
+            set => Set(ref _testChecked, value);
+        }
+
+
         #region Test1Checked
-        private bool _test1Checked = false;
+        //private bool _test1Checked = false;
         /// <summary>Активация test1Box</summary>
         public bool Test1Checked
         {
-            get => _test1Checked;
-            set => Set(ref _test1Checked, value);
+            get => _testChecked[0];
+            set => Set(ref _testChecked[0], value);
         }
         #endregion
 
         #region Test2Checked
-        private bool _test2Checked = false;
+        //private bool _test2Checked = false;
         /// <summary>Активация test2Box</summary>
         public bool Test2Checked
         {
-            get => _test2Checked;
-            set => Set(ref _test2Checked, value);
+            get => _testChecked[1];
+            set => Set(ref _testChecked[1], value);
         }
         #endregion
 
@@ -321,7 +407,6 @@ namespace Sequence.ViewModels
                 WorkMode = true;
                 ParamPanelVisibility = "Visible";
                 RowPanelHeight = "50";
-
             }
             else
             {
@@ -360,6 +445,42 @@ namespace Sequence.ViewModels
         }
         #endregion
 
+        #region ExecuteTestCommand
+        public ICommand ExecuteTestCommand { get; }
+
+        private bool CanExecuteTestCommandExecute(object p) => true;
+
+        private void OnExecuteTestCommandExecuted(object p)
+        {
+            if (string.IsNullOrEmpty(LSBTxt) || string.IsNullOrEmpty(TimeShiftTxt) ||
+                string.IsNullOrEmpty(NumberBitTxt) || (string.IsNullOrEmpty(TimeLengthTxt) && TimeLengthChecked == true))
+            {
+                MessageBox.Show("Fill in all the fields");
+            }
+            else if (Int32.Parse(LSBTxt.Trim()) >= Int32.Parse(NumberBitTxt.Trim()))
+            {
+                MessageBox.Show("The number of LSB's cannot be greater than the ADS bit's");
+            }
+            else
+            {
+                Reset();
+            }
+        }
+        #endregion
+
+        #region SelectAllTestCommand
+        public ICommand SelectAllTestCommand { get; }
+
+        private bool CanSelectAllTestCommandExecute(object p) => true;
+
+        private void OnSelectAllTestCommandExecuted(object p)
+        {
+            bool[] test = new bool[15];
+            for (int i = 0; i < test.Length; i++) test[i] = true;
+            TestChecked = test;
+        }
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
@@ -369,7 +490,14 @@ namespace Sequence.ViewModels
             MinimizeApplicationCommand = new ActionCommand(OnMinimizeApplicationCommandExecuted,CanMinimizeApplicationCommandExecute);
             OpenFileCommand = new ActionCommand(OnOpenFileCommandExecuted, CanOpenFileCommandExecute);
             ModeBoxSelectionChangedCommand = new ActionCommand(OnModeBoxSelectionChangedCommandExecuted, CanModeBoxSelectionChangedCommandExecute);
+            ExecuteTestCommand = new ActionCommand(OnExecuteTestCommandExecuted, CanExecuteTestCommandExecute);
+            SelectAllTestCommand = new ActionCommand(OnSelectAllTestCommandExecuted, CanSelectAllTestCommandExecute);
             #endregion
+        }
+
+        private void Reset()
+        {
+            
         }
     }
 }

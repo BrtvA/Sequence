@@ -238,7 +238,7 @@
                          Height="30"
                          Width="200"
                          Margin="170,-29,0,0"
-                         Text="8"
+                         Text="{Binding NumberBitTxt}"
                          TextAlignment="Center"/>
                 <TextBlock Text="Number of LSB's:"
                            FontSize="20"
@@ -261,7 +261,7 @@
                          Height="30"
                          Width="200"
                          Margin="500,-29,0,0"
-                         Text="6"
+                         Text="{Binding LSBTxt}"
                          TextAlignment="Center"/>
             </StackPanel>
 
@@ -287,7 +287,7 @@
                          Height="30"
                          Width="200"
                          Margin="170,-29,0,0"
-                         Text="17"
+                         Text="{Binding TimeShiftTxt}"
                          TextAlignment="Center"/>
                 <CheckBox  x:Name="timeLengthCheck"
                            Content="Time series, ns:"
@@ -312,7 +312,7 @@
                          Height="30"
                          Width="200"
                          Margin="500,-29,0,0"
-                         Text="66632"
+                         Text="{Binding TimeLengthTxt}"
                          TextAlignment="Center"/>
             </StackPanel>
 
@@ -331,7 +331,8 @@
                         Margin="20,10,0,0"
                         IsEnabled="{Binding ExecuteTestButtonEnabled}"
                         Style="{StaticResource BlueButton}"
-                        Template="{StaticResource BlueButtonControl}">
+                        Template="{StaticResource BlueButtonControl}"
+                        Command="{Binding ExecuteTestCommand}">
                 </Button>
 
                 <Button x:Name="saveButton" 
@@ -389,7 +390,8 @@
                            VerticalAlignment="Center"
                            Margin="30,10,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[0]}"/>
                 <TextBox x:Name="test1Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -403,7 +405,8 @@
                          Height="30"
                          Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding Test1Txt}"/>
                 <CheckBox  x:Name="test9Check"
                            Content="9) Maurer's &quot;Universal Statistical&quot; Test"
                            FontSize="16"
@@ -414,7 +417,8 @@
                            VerticalAlignment="Center"
                            Margin="400,-29,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[8]}"/>
                 <TextBox x:Name="test9Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -442,7 +446,8 @@
                            VerticalAlignment="Center"
                            Margin="30,10,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[1]}"/>
                 <TextBox x:Name="test2Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -467,7 +472,8 @@
                            VerticalAlignment="Center"
                            Margin="400,-29,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[9]}"/>
                 <TextBox x:Name="test10Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -495,7 +501,8 @@
                            VerticalAlignment="Center"
                            Margin="30,10,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[8]}"/>
                 <TextBox x:Name="test3Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -520,7 +527,8 @@
                            VerticalAlignment="Center"
                            Margin="400,-29,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[10]}"/>
                 <ComboBox x:Name="test11Box"
                          BorderThickness="2"
                          Foreground="Black"
@@ -547,7 +555,8 @@
                            VerticalAlignment="Center"
                            Margin="30,10,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[3]}"/>
                 <TextBox x:Name="test4Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -572,7 +581,8 @@
                            VerticalAlignment="Center"
                            Margin="400,-29,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[11]}"/>
                 <TextBox x:Name="test12Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -600,7 +610,8 @@
                            VerticalAlignment="Center"
                            Margin="30,10,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[4]}"/>
                 <TextBox x:Name="test5Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -625,7 +636,8 @@
                            VerticalAlignment="Center"
                            Margin="400,-29,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[12]}"/>
                 <ComboBox x:Name="test13Box"
                          BorderThickness="2"
                          Foreground="Black"
@@ -652,7 +664,8 @@
                            VerticalAlignment="Center"
                            Margin="30,10,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[5]}"/>
                 <TextBox x:Name="test6Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -677,7 +690,8 @@
                            VerticalAlignment="Center"
                            Margin="400,-29,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[13]}"/>
                 <ComboBox x:Name="test14Box"
                          BorderThickness="2"
                          Foreground="Black"
@@ -704,7 +718,8 @@
                            VerticalAlignment="Center"
                            Margin="30,10,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[6]}"/>
                 <TextBox x:Name="test7Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -729,7 +744,8 @@
                            VerticalAlignment="Center"
                            Margin="400,-29,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[14]}"/>
                 <ComboBox x:Name="test15Box"
                          BorderThickness="2"
                          Foreground="Black"
@@ -756,7 +772,8 @@
                            VerticalAlignment="Center"
                            Margin="30,10,0,0"
                            Height="30"
-                           Width="350"/>
+                           Width="350"
+                           IsChecked="{Binding TestChecked[7]}"/>
                 <TextBox x:Name="test8Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -787,7 +804,8 @@
                         Width="150"
                         Margin="20,10,0,0"
                         Style="{StaticResource BlueButton}"
-                        Template="{StaticResource BlueButtonControl}">
+                        Template="{StaticResource BlueButtonControl}"
+                        Command="{Binding SelectAllTestCommand}">
                 </Button>
                 <Button x:Name="resetButton" 
                         BorderThickness="0"
