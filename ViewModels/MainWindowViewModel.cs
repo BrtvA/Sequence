@@ -357,6 +357,36 @@ namespace Sequence.ViewModels
         }
         #endregion
 
+        #region TestProgressVisibility
+        private string _testProgressVisibility = "Hidden";
+        /// <summary>Видимость testProgress</summary>
+        public string TestProgressVisibility
+        {
+            get => _testProgressVisibility;
+            set => Set(ref _testProgressVisibility, value);
+        }
+        #endregion
+
+        #region MaximumTestProgress
+        private string _maximumTestProgress;
+        ///<summary>MaximumTestProgress</summary>
+        public string MaximumTestProgress
+        {
+            get => _maximumTestProgress;
+            set => Set(ref _maximumTestProgress, value);
+        }
+        #endregion
+
+        #region ValueTestProgress
+        private string _valueTestProgress;
+        ///<summary>ValueTestProgress</summary>
+        public string ValueTestProgress
+        {
+            get => _valueTestProgress;
+            set => Set(ref _valueTestProgress, value);
+        }
+        #endregion
+
 
         /*
         #region ModeBoxItemsSource
@@ -553,9 +583,10 @@ namespace Sequence.ViewModels
 
         private void OnResetCommandExecuted(object p)
         {
-            bool[] test = new bool[15];
-            for (int i = 0; i < test.Length; i++) test[i] = false;
-            TestChecked = test;
+            TestChecked = new bool[] {
+            false, false, false, false, false,
+            false, false, false, false, false,
+            false, false, false, false, false};
             Reset();
         }
         #endregion
@@ -620,6 +651,8 @@ namespace Sequence.ViewModels
 
         private async void AsyncExecuteTest()
         {
+            TestProgressVisibility = "Visible";
+
             TestResult testResult = new TestResult();
             ITestNIST[] testNIST = { new Test1(), new Test2(), new Test3(), new Test4(), new Test5(),
                 new Test6(), new Test7(), new Test8(), new Test9(), new Test10(),
@@ -630,7 +663,21 @@ namespace Sequence.ViewModels
             List<string>[] pValueList = new List<string>[15];
             string[] background = new string[15];
 
-            Task[] testTask = new Task[NumActiveCheck()];
+            int numActiveCheck = NumActiveCheck();
+            MaximumTestProgress = numActiveCheck.ToString();
+            int numDidTest = 0;
+            ValueTestProgress = numDidTest.ToString();
+            Task[] testTask = new Task[numActiveCheck];
+
+            var progressTask = Task.Run(() =>
+            {
+                while (numDidTest<numActiveCheck)
+                {
+                }
+                BackgroundCheck = background;
+                TestListTxt = pValueList;
+                TestProgressVisibility = "Hidden";
+            });
 
             int j = 0;
             foreach (var item in testNIST)
@@ -682,6 +729,8 @@ namespace Sequence.ViewModels
                                     break;
                             }
                         }
+                        numDidTest++;
+                        ValueTestProgress = numDidTest.ToString();
                     });
                 }
                 else
@@ -690,9 +739,9 @@ namespace Sequence.ViewModels
                 }
                 j++;
             }
-            Task.WaitAll(testTask);
-            BackgroundCheck = background;
-            TestListTxt = pValueList;
+            //Task.WaitAll(testTask);
+            //BackgroundCheck = background;
+            //TestListTxt = pValueList;
         }
 
         private int NumActiveCheck()

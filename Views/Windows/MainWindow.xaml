@@ -353,6 +353,17 @@
                         Visibility="{Binding ParamPanelVisibility}"
                         Command="{Binding SaveTestCommand}">
                 </Button>
+
+                <ProgressBar Name="testProgress"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Height="30"
+                             Width="600"
+                             Margin="400,-29,0,0"
+                             Maximum="{Binding MaximumTestProgress}"
+                             Minimum="0"
+                             Value="{Binding ValueTestProgress}"
+                             Visibility="{Binding TestProgressVisibility}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="5">
