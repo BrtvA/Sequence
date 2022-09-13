@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Microsoft.Win32;
 using Sequence.Infrastructure.Commands;
+using Sequence.Models;
+using Sequence.Models.TestNIST;
 using Sequence.ViewModels.Base;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sequence.ViewModels
 {
@@ -98,28 +106,14 @@ namespace Sequence.ViewModels
         }
         #endregion
 
-        #region TestTxt
-
-        #region Test1Txt
-        private string _test1Txt;
-        ///<summary>pValue для Test1</summary>
-        public string Test1Txt
+        #region TestListTxt
+        private List<string>[] _testListTxt;
+        ///<summary>TestListTxt</summary>
+        public List<string>[] TestListTxt
         {
-            get => _test1Txt;
-            set => Set(ref _test1Txt, value);
+            get => _testListTxt;
+            set => Set(ref _testListTxt, value);
         }
-        #endregion
-
-        #region Test2Txt
-        private string _test2Txt;
-        ///<summary>pValue для Test2</summary>
-        public string Test2Txt
-        {
-            get => _test2Txt;
-            set => Set(ref _test1Txt, value);
-        }
-        #endregion
-
         #endregion
 
         #region WorkMode
@@ -154,7 +148,7 @@ namespace Sequence.ViewModels
 
         #region TimeLengthChecked
         private bool _timeLengthChecked = false;
-        /// <summary>Активность SaveButton</summary>
+        /// <summary>Активность TimeLengthBox</summary>
         public bool TimeLengthChecked
         {
             get => _timeLengthChecked;
@@ -168,7 +162,7 @@ namespace Sequence.ViewModels
             false, false, false, false, false,
             false, false, false, false, false,
             false, false, false, false, false};
-        /// <summary>Активация test1Box</summary>
+        /// <summary>Активация testBox</summary>
         public bool[] TestChecked
         {
             get => _testChecked;
@@ -328,6 +322,21 @@ namespace Sequence.ViewModels
 
         #endregion
 
+        #region BackgroundCheck
+        private string[] _backgroundCheck = new string[]
+        {
+            "White", "White", "White", "White", "White",
+            "White", "White", "White", "White", "White",
+            "White", "White", "White", "White", "White"
+        };
+        /// <summary>Цвет testBox</summary>
+        public string[] BackgroundCheck
+        {
+            get => _backgroundCheck;
+            set => Set(ref _backgroundCheck, value);
+        }
+        #endregion
+
         #region ParamPanelVisibility
         private string _paramPanelVisibility = "Visible";
         /// <summary>Видимость ParamPanel при WorkMode = Intensity fluctuation</summary>
@@ -364,13 +373,23 @@ namespace Sequence.ViewModels
         #endregion
         */
 
-        #region ModeBoxSelectedValue
+        #region ModeBoxSelectedIndex
         private int _modeBoxSelectedIndex = 0;
         ///<summary>ModeBoxSelectedIndex</summary>
         public int ModeBoxSelectedIndex
         {
             get => _modeBoxSelectedIndex;
             set => Set(ref _modeBoxSelectedIndex, value);
+        }
+        #endregion
+
+        #region ComboBoxSelectedIndex
+        private int _comboBoxSelectedIndex = 0;
+        ///<summary>Индекс Item у testBox</summary>
+        public int ComboBoxSelectedIndex
+        {
+            get => _comboBoxSelectedIndex;
+            set => Set(ref _comboBoxSelectedIndex, value);
         }
         #endregion
 
@@ -383,7 +402,7 @@ namespace Sequence.ViewModels
 
         private void OnCloseApplicationCommandExecuted(object p)
         {
-            Application.Current.Shutdown();
+            System.Windows.Application.Current.Shutdown();
         }
         #endregion
 
@@ -414,6 +433,8 @@ namespace Sequence.ViewModels
                 ParamPanelVisibility = "Hidden";
                 RowPanelHeight = "0";
             }
+            OpenFileTxt = null;
+            BitLengthTxt = null;
         }
         #endregion
 
@@ -464,6 +485,50 @@ namespace Sequence.ViewModels
             else
             {
                 Reset();
+                if (WorkMode == true)
+                {
+                    GetCSVData();
+                    SaveButtonEnabled = true;
+                }
+                else
+                {
+                    using (StreamReader Read = new StreamReader(OpenFileTxt))
+                    {
+                        SequenceParameters._sequence = Read.ReadLine();
+                        SequenceParameters._sequenceLength = SequenceParameters._sequence.Length;
+                    }
+                    SaveButtonEnabled = false;
+
+                }
+                BitLengthTxt = SequenceParameters._sequenceLength.ToString();
+
+                AsyncExecuteTest();
+
+                ComboBoxSelectedIndex = 0;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+        }
+        #endregion
+
+        #region SaveTestCommand
+        public ICommand SaveTestCommand { get; }
+
+        private bool CanSaveTestCommandExecute(object p) => true;
+
+        private void OnSaveTestCommandExecuted(object p)
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            file.Filter = "Text files(*.txt)|*.txt";
+            file.ShowDialog();
+            if (file.FileName != "")
+            {
+                using (StreamWriter Save = new StreamWriter(file.FileName))//Запись в файл
+                {
+                    Save.WriteLine(SequenceParameters._sequence);
+                    Save.Close();
+                }
             }
         }
         #endregion
@@ -481,6 +546,20 @@ namespace Sequence.ViewModels
         }
         #endregion
 
+        #region ResetCommand
+        public ICommand ResetCommand { get; }
+
+        private bool CanResetCommandExecute(object p) => true;
+
+        private void OnResetCommandExecuted(object p)
+        {
+            bool[] test = new bool[15];
+            for (int i = 0; i < test.Length; i++) test[i] = false;
+            TestChecked = test;
+            Reset();
+        }
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
@@ -491,13 +570,139 @@ namespace Sequence.ViewModels
             OpenFileCommand = new ActionCommand(OnOpenFileCommandExecuted, CanOpenFileCommandExecute);
             ModeBoxSelectionChangedCommand = new ActionCommand(OnModeBoxSelectionChangedCommandExecuted, CanModeBoxSelectionChangedCommandExecute);
             ExecuteTestCommand = new ActionCommand(OnExecuteTestCommandExecuted, CanExecuteTestCommandExecute);
+            SaveTestCommand = new ActionCommand(OnSaveTestCommandExecuted, CanSaveTestCommandExecute);
             SelectAllTestCommand = new ActionCommand(OnSelectAllTestCommandExecuted, CanSelectAllTestCommandExecute);
+            ResetCommand = new ActionCommand(OnResetCommandExecuted, CanResetCommandExecute);
             #endregion
         }
 
         private void Reset()
         {
-            
+            string[] background = new string[15];
+            for (int i = 0; i < background.Length; i++) background[i] = "White";
+            BackgroundCheck = background;
+
+            //List<string>[] pValueList = new List<string>[15];
+            //TestListTxt = pValueList;
+            if (TestListTxt != null)
+                TestListTxt = new List<string>[15];
+
+            //MessageBox.Show(TestListTxt.Length.ToString());
+
+            BitLengthTxt = null;
+        }
+
+        private void GetCSVData()
+        {
+            CSVData csvData = new CSVData();
+            csvData.LSB = Int32.Parse(LSBTxt.Trim().Replace('.', ','));
+            csvData.numberBit = Int32.Parse(NumberBitTxt.Trim().Replace('.', ','));
+            string[] dataCSVArray = File.ReadAllLines(OpenFileTxt);
+            csvData.timeShift = double.Parse(TimeShiftTxt.Trim().Replace('.', ','));
+            csvData.deltaTime = Math.Abs((double.Parse(dataCSVArray[0].Split(',')[0].Replace('.', ',')) - double.Parse(dataCSVArray[1].Split(',')[0].Replace('.', ','))) * Math.Pow(10, 9));
+            if (TimeLengthChecked == true)
+            {
+                csvData.timeLength = double.Parse(TimeLengthTxt.Replace('.', ',')) + 2 * csvData.timeShift;
+            }
+            else
+            {
+                csvData.timeLength = csvData.deltaTime * (dataCSVArray.Length - 1);
+            }
+            csvData.intensity = new double[(int)Math.Truncate(csvData.timeLength / csvData.deltaTime) + 1];
+            string[] lineArray;
+            for (int i = 0; i < csvData.intensity.Length; i++)
+            {
+                lineArray = dataCSVArray[i].Split(',');
+                csvData.intensity[i] = double.Parse(lineArray[1].Replace('.', ','));
+            }
+            csvData.GetSequence();
+        }
+
+        private async void AsyncExecuteTest()
+        {
+            TestResult testResult = new TestResult();
+            ITestNIST[] testNIST = { new Test1(), new Test2(), new Test3(), new Test4(), new Test5(),
+                new Test6(), new Test7(), new Test8(), new Test9(), new Test10(),
+                new Test11(), new Test12(), new Test13(), new Test14(), new Test15() };
+
+
+            bool[] randStatus = new bool[15];
+            List<string>[] pValueList = new List<string>[15];
+            string[] background = new string[15];
+
+            Task[] testTask = new Task[NumActiveCheck()];
+
+            int j = 0;
+            foreach (var item in testNIST)
+            {
+                if (TestChecked[j] == true)
+                {
+                    var index = j;
+                    testTask[index] = Task.Run(() => {
+                        var result = testResult.Test(item);
+
+                        randStatus[index] = result.Item2;
+                        if (result.Item2)
+                        {
+                            background[index] = "Green";//Тест пройден
+                        }
+                        else if (result.Item1[0] == -1)
+                        {
+                            background[index] = "Yellow";//Последовательность не удовлетворяет начальным условиям
+                        }
+                        else
+                        {
+                            background[index] = "Red";//Тест не пройден
+                        }
+
+                        pValueList[index] = new List<string>();
+                        for (int k = 0; k < result.Item1.Length; k++)
+                        {
+                            switch (index)
+                            {
+                                case 12:
+                                    if (k == 0) pValueList[index].Add($"Forward: {result.Item1[k]}");
+                                    if (k == 1) pValueList[index].Add($"Backward: {result.Item1[k]}");
+                                    break;
+
+                                case 13:
+                                    if (k < 4) pValueList[index].Add($"x = {-4 + k}: {result.Item1[k]}");
+                                    else if (k > 4) pValueList[index].Add($"x = {-3 + k}: {result.Item1[k]}");
+                                    else pValueList[index].Add($"x = 1: {result.Item1[k]}");
+                                    break;
+
+                                case 14:
+                                    if (k < 9) pValueList[index].Add($"x = {-9 + k}: {result.Item1[k]}");
+                                    else if (k > 9) pValueList[index].Add($"x = {-8 + k}: {result.Item1[k]}");
+                                    else pValueList[index].Add($"x = 1: {result.Item1[k]}");
+                                    break;
+
+                                default:
+                                    pValueList[index].Add(result.Item1[k].ToString());
+                                    break;
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    background[j] = "White";
+                }
+                j++;
+            }
+            Task.WaitAll(testTask);
+            BackgroundCheck = background;
+            TestListTxt = pValueList;
+        }
+
+        private int NumActiveCheck()
+        {
+            int countActiveTest = 0;
+            for (int i = 0; i < TestChecked.Length; i++)
+            {
+                if (TestChecked[i] == true) countActiveTest++;
+            }
+            return countActiveTest;
         }
     }
 }

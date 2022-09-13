@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sequence.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Sequence
         internal protected int LSB { get; set; } //Количество младших разрядов
         internal protected int numberBit { get; set; } //Количество бит
 
-        internal protected string GetSequence() {
+        internal protected void GetSequence() {
 
             int startIndex = (int)Math.Truncate(timeShift / deltaTime)+1;//Индекс начала смещённого массива
             int stopIndex = (int)Math.Truncate((timeLength - timeShift) / deltaTime) + 1;//Индекс конца несмещенного массива
@@ -31,7 +32,8 @@ namespace Sequence
             //MessageBox.Show($"Длина массивов дискретных: несмещенный {NormUnshiftedArray.Length}, смещенный {NormShiftedArray.Length}");
             //Array.Clear(UnshiftedArray);
             //Array.Clear(ShiftedArray);
-            return MakeSequence(discreteUnshiftArray, discreteShiftedArray);
+            SequenceParameters._sequence = MakeSequence(discreteUnshiftArray, discreteShiftedArray);
+            SequenceParameters._sequenceLength = SequenceParameters._sequence.Length;
         }
         
         //Обрезка массива

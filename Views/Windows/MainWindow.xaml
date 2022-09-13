@@ -350,7 +350,8 @@
                         IsEnabled="{Binding SaveButtonEnabled}"
                         Style="{StaticResource BlueButton}"
                         Template="{StaticResource BlueButtonControl}"
-                        Visibility="{Binding ParamPanelVisibility}">
+                        Visibility="{Binding ParamPanelVisibility}"
+                        Command="{Binding SaveTestCommand}">
                 </Button>
             </StackPanel>
 
@@ -376,7 +377,8 @@
                          Height="30"
                          Width="200"
                          Margin="170,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding BitLengthTxt}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="6">
@@ -391,7 +393,8 @@
                            Margin="30,10,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[0]}"/>
+                           IsChecked="{Binding TestChecked[0]}"
+                           Background="{Binding BackgroundCheck[0]}"/>
                 <TextBox x:Name="test1Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -406,7 +409,7 @@
                          Width="250"
                          Margin="400,-29,0,0"
                          IsEnabled="false"
-                         Text="{Binding Test1Txt}"/>
+                         Text="{Binding TestListTxt[0][0]}"/>
                 <CheckBox  x:Name="test9Check"
                            Content="9) Maurer's &quot;Universal Statistical&quot; Test"
                            FontSize="16"
@@ -418,7 +421,8 @@
                            Margin="400,-29,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[8]}"/>
+                           IsChecked="{Binding TestChecked[8]}"
+                           Background="{Binding BackgroundCheck[8]}"/>
                 <TextBox x:Name="test9Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -432,7 +436,8 @@
                          Height="30"
                          Width="250"
                          Margin="950,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[8][0]}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="7">
@@ -447,7 +452,8 @@
                            Margin="30,10,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[1]}"/>
+                           IsChecked="{Binding TestChecked[1]}"
+                           Background="{Binding BackgroundCheck[2]}"/>
                 <TextBox x:Name="test2Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -461,7 +467,8 @@
                          Height="30"
                          Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[1][0]}"/>
                 <CheckBox  x:Name="test10Check"
                            Content="10) Linear Complexity"
                            FontSize="16"
@@ -473,7 +480,8 @@
                            Margin="400,-29,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[9]}"/>
+                           IsChecked="{Binding TestChecked[9]}"
+                           Background="{Binding BackgroundCheck[9]}"/>
                 <TextBox x:Name="test10Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -487,7 +495,8 @@
                          Height="30"
                          Width="250"
                          Margin="950,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[9][0]}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="8">
@@ -502,7 +511,8 @@
                            Margin="30,10,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[8]}"/>
+                           IsChecked="{Binding TestChecked[2]}"
+                           Background="{Binding BackgroundCheck[2]}"/>
                 <TextBox x:Name="test3Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -516,7 +526,8 @@
                          Height="30"
                          Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[2][0]}"/>
                 <CheckBox  x:Name="test11Check"
                            Content="11) Serial Test"
                            FontSize="16"
@@ -528,7 +539,8 @@
                            Margin="400,-29,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[10]}"/>
+                           IsChecked="{Binding TestChecked[10]}"
+                           Background="{Binding BackgroundCheck[10]}"/>
                 <ComboBox x:Name="test11Box"
                          BorderThickness="2"
                          Foreground="Black"
@@ -541,7 +553,8 @@
                          Height="30"
                          Width="250"
                          Margin="950,-29,0,0"
-                         SelectedIndex="0"/>
+                         SelectedIndex="{Binding ComboBoxSelectedIndex}"
+                         ItemsSource="{Binding TestListTxt[10]}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="9">
@@ -556,7 +569,8 @@
                            Margin="30,10,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[3]}"/>
+                           IsChecked="{Binding TestChecked[3]}"
+                           Background="{Binding BackgroundCheck[3]}"/>
                 <TextBox x:Name="test4Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -570,7 +584,8 @@
                          Height="30"
                          Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[3][0]}"/>
                 <CheckBox  x:Name="test12Check"
                            Content="12) Approximate Entropy Test"
                            FontSize="16"
@@ -582,7 +597,8 @@
                            Margin="400,-29,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[11]}"/>
+                           IsChecked="{Binding TestChecked[11]}"
+                           Background="{Binding BackgroundCheck[11]}"/>
                 <TextBox x:Name="test12Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -596,7 +612,8 @@
                          Height="30"
                          Width="250"
                          Margin="950,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[11][0]}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="10">
@@ -611,7 +628,8 @@
                            Margin="30,10,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[4]}"/>
+                           IsChecked="{Binding TestChecked[4]}"
+                           Background="{Binding BackgroundCheck[4]}"/>
                 <TextBox x:Name="test5Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -625,7 +643,8 @@
                          Height="30"
                          Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[4][0]}"/>
                 <CheckBox  x:Name="test13Check"
                            Content="13) Cumulative Sums (Cusum) Test"
                            FontSize="16"
@@ -637,7 +656,8 @@
                            Margin="400,-29,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[12]}"/>
+                           IsChecked="{Binding TestChecked[12]}"
+                           Background="{Binding BackgroundCheck[12]}"/>
                 <ComboBox x:Name="test13Box"
                          BorderThickness="2"
                          Foreground="Black"
@@ -650,7 +670,8 @@
                          Height="30"
                          Width="250"
                          Margin="950,-29,0,0"
-                         SelectedIndex="0"/>
+                         SelectedIndex="{Binding ComboBoxSelectedIndex}"
+                         ItemsSource="{Binding TestListTxt[12]}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="11">
@@ -665,7 +686,8 @@
                            Margin="30,10,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[5]}"/>
+                           IsChecked="{Binding TestChecked[5]}"
+                           Background="{Binding BackgroundCheck[5]}"/>
                 <TextBox x:Name="test6Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -679,7 +701,8 @@
                          Height="30"
                          Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[5][0]}"/>
                 <CheckBox  x:Name="test14Check"
                            Content="14) Random Excursions Test"
                            FontSize="16"
@@ -691,7 +714,8 @@
                            Margin="400,-29,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[13]}"/>
+                           IsChecked="{Binding TestChecked[13]}"
+                           Background="{Binding BackgroundCheck[13]}"/>
                 <ComboBox x:Name="test14Box"
                          BorderThickness="2"
                          Foreground="Black"
@@ -704,7 +728,8 @@
                          Height="30"
                          Width="250"
                          Margin="950,-29,0,0"
-                         SelectedIndex="0"/>
+                         SelectedIndex="{Binding ComboBoxSelectedIndex}"
+                         ItemsSource="{Binding TestListTxt[13]}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="12">
@@ -719,7 +744,8 @@
                            Margin="30,10,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[6]}"/>
+                           IsChecked="{Binding TestChecked[6]}"
+                           Background="{Binding BackgroundCheck[6]}"/>
                 <TextBox x:Name="test7Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -733,7 +759,8 @@
                          Height="30"
                          Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[6][0]}"/>
                 <CheckBox  x:Name="test15Check"
                            Content="15) Random Excursions Variant Test"
                            FontSize="16"
@@ -745,7 +772,8 @@
                            Margin="400,-29,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[14]}"/>
+                           IsChecked="{Binding TestChecked[14]}"
+                           Background="{Binding BackgroundCheck[14]}"/>
                 <ComboBox x:Name="test15Box"
                          BorderThickness="2"
                          Foreground="Black"
@@ -758,7 +786,8 @@
                          Height="30"
                          Width="250"
                          Margin="950,-29,0,0"
-                         SelectedIndex="0"/>
+                         SelectedIndex="{Binding ComboBoxSelectedIndex}"
+                         ItemsSource="{Binding TestListTxt[14]}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="13">
@@ -773,7 +802,8 @@
                            Margin="30,10,0,0"
                            Height="30"
                            Width="350"
-                           IsChecked="{Binding TestChecked[7]}"/>
+                           IsChecked="{Binding TestChecked[7]}"
+                           Background="{Binding BackgroundCheck[7]}"/>
                 <TextBox x:Name="test8Text"
                          BorderThickness="2"
                          Foreground="White"
@@ -787,7 +817,8 @@
                          Height="30"
                          Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"/>
+                         IsEnabled="false"
+                         Text="{Binding TestListTxt[7][0]}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="14">
@@ -820,7 +851,8 @@
                         Width="150"
                         Margin="200,-29,0,0"
                         Style="{StaticResource BlueButton}"
-                        Template="{StaticResource BlueButtonControl}">
+                        Template="{StaticResource BlueButtonControl}"
+                        Command="{Binding ResetCommand}">
                 </Button>
             </StackPanel>
         </Grid>
