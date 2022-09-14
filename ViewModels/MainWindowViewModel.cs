@@ -387,22 +387,6 @@ namespace Sequence.ViewModels
         }
         #endregion
 
-
-        /*
-        #region ModeBoxItemsSource
-        private ObservableCollection<string> _modeBoxItemsSource = new ObservableCollection<string>()
-        {
-            "Intensity fluctuation", "Bit sequence"
-        };
-        ///<ModeBoxItemsSource</summary>
-        public ObservableCollection<string> ModeBoxItemsSource
-        {
-            get => _modeBoxItemsSource;
-            set => Set(ref _modeBoxItemsSource, value);
-        }
-        #endregion
-        */
-
         #region ModeBoxSelectedIndex
         private int _modeBoxSelectedIndex = 0;
         ///<summary>ModeBoxSelectedIndex</summary>
@@ -583,13 +567,6 @@ namespace Sequence.ViewModels
 
         private void OnResetCommandExecuted(object p)
         {
-            /*
-            TestChecked = new bool[] {
-            false, false, false, false, false,
-            false, false, false, false, false,
-            false, false, false, false, false};
-            */
-
             TestChecked = new bool[15];
             Reset();
         }

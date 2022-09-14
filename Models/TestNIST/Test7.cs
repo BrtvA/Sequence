@@ -9,7 +9,7 @@ namespace Sequence.Models.TestNIST
     internal class Test7:ITestNIST
     {
         /// <summary>Non-overlapping Template Matching Test</summary>
-        /// <returns></returns>
+        /// <returns>pValue, isRandom</returns>
         public Tuple<double[], bool> Test()
         {
             //string sequence = "1010010010 1110010110";

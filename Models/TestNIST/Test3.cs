@@ -9,7 +9,7 @@ namespace Sequence.Models.TestNIST
     internal class Test3:ITestNIST
     {
         /// <summary>Runs Test</summary>
-        /// <returns></returns>
+        /// <returns>pValue, isRandom</returns>
         public Tuple<double[], bool> Test()
         {
             //string sequence = "1100100100001111110110101010001000100001011010001100001000110100110001001100011001100010100010111000";

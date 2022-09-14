@@ -9,7 +9,7 @@ namespace Sequence.Models.TestNIST
     internal class Test10:ITestNIST
     {
         /// <summary>Linear Complexity Test</summary>
-        /// <returns></returns>
+        /// <returns>pValue, isRandom</returns>
         public Tuple<double[], bool> Test()
         {
             //int strLength = sequence.Length;

@@ -9,7 +9,7 @@ namespace Sequence.Models.TestNIST
     internal class Test15:ITestNIST
     {
         /// <summary>Random Excursions Variant Test</summary>
-        /// <returns></returns>
+        /// <returns>pValue, isRandom</returns>
         public Tuple<double[], bool> Test()
         {
             //string sequence = "0110110101";
@@ -54,7 +54,6 @@ namespace Sequence.Models.TestNIST
             for (int i = 0; i < 18; i++)
             {
                 pValue[i] = MathNet.Numerics.SpecialFunctions.Erfc(Math.Abs(stateCount[i] - cycleCount) / Math.Sqrt(2 * cycleCount * (4 * Math.Abs(x[i]) - 2)));
-                //MessageBox.Show($"i={i}: stateCount={stateCount[i]}, cycleCount={cycleCount}, x={x[i]}");
             }
 
             isRandom = true;
