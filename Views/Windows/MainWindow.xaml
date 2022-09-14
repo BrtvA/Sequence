@@ -357,6 +357,9 @@
                 <ProgressBar Name="testProgress"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
+                             Background="Transparent"
+                             BorderThickness="2"
+                             BorderBrush="DarkGray"
                              Height="30"
                              Width="600"
                              Margin="400,-29,0,0"
@@ -367,6 +370,8 @@
 
                 <TextBlock Text="Progress"
                            FontSize="16"
+                           FontWeight="Bold"
+                           Foreground="LightGray"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Height="30"
