@@ -583,10 +583,14 @@ namespace Sequence.ViewModels
 
         private void OnResetCommandExecuted(object p)
         {
+            /*
             TestChecked = new bool[] {
             false, false, false, false, false,
             false, false, false, false, false,
             false, false, false, false, false};
+            */
+
+            TestChecked = new bool[15];
             Reset();
         }
         #endregion
@@ -667,7 +671,6 @@ namespace Sequence.ViewModels
             MaximumTestProgress = numActiveCheck.ToString();
             int numDidTest = 0;
             ValueTestProgress = numDidTest.ToString();
-            Task[] testTask = new Task[numActiveCheck];
 
             var progressTask = Task.Run(() =>
             {
@@ -685,7 +688,7 @@ namespace Sequence.ViewModels
                 if (TestChecked[j] == true)
                 {
                     var index = j;
-                    testTask[index] = Task.Run(() => {
+                    var testTask = Task.Run(() => {
                         var result = testResult.Test(item);
 
                         randStatus[index] = result.Item2;

@@ -364,6 +364,15 @@
                              Minimum="0"
                              Value="{Binding ValueTestProgress}"
                              Visibility="{Binding TestProgressVisibility}"/>
+
+                <TextBlock Text="Progress"
+                           FontSize="16"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Height="30"
+                           Width="150"
+                           Margin="660,-29,0,0"
+                           Visibility="{Binding TestProgressVisibility}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="5">
@@ -464,7 +473,7 @@
                            Height="30"
                            Width="350"
                            IsChecked="{Binding TestChecked[1]}"
-                           Background="{Binding BackgroundCheck[2]}"/>
+                           Background="{Binding BackgroundCheck[1]}"/>
                 <TextBox x:Name="test2Text"
                          BorderThickness="2"
                          Foreground="White"
