@@ -25,4 +25,8 @@
     <Resource Include="Resources\bit101.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ScreenShots\TestData\" />
+  </ItemGroup>
+
 </Project>
