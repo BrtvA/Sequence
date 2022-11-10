@@ -13,4 +13,4 @@
 
 Цветовая индикация результатов выполнения: зеленый - тест пройден; красный - тест не пройден; желтый - не выполнены начальные условия для запуска теста.
 
-![Alt text](https://github.com/BrtvA/Sequence/blob/master/ScreenShots/screen%20shot.png)
+![Alt text](https://github.com/BrtvA/Sequence/blob/master/DataAndImage/screen%20shot.png)
