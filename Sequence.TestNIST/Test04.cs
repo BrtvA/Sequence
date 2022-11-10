@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test4:ITestNIST
+    public class Test04:ITestNIST
     {
         /// <summary>Test for the Longest Run of Ones in a Block</summary>
         /// <returns></returns>

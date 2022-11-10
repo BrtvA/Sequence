@@ -15,8 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
 using Sequence.Infrastructure.Commands;
-using Sequence.Models;
-using Sequence.Models.TestNIST;
+using Sequence.TestNIST;
 using Sequence.ViewModels.Base;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -482,8 +481,8 @@ namespace Sequence.ViewModels
             TestProgressVisibility = "Visible";
 
             TestResult testResult = new TestResult();
-            ITestNIST[] testNIST = { new Test1(), new Test2(), new Test3(), new Test4(), new Test5(),
-                new Test6(), new Test7(), new Test8(), new Test9(), new Test10(),
+            ITestNIST[] testNIST = { new Test01(), new Test02(), new Test03(), new Test04(), new Test05(),
+                new Test06(), new Test07(), new Test08(), new Test09(), new Test10(),
                 new Test11(), new Test12(), new Test13(), new Test14(), new Test15() };
 
 

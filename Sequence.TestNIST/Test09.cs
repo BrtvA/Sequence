@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test9:ITestNIST
+    public class Test09:ITestNIST
     {
         /// <summary> Maurer's "Universal Statistical" Test</summary>
         /// <returns></returns>

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test11:ITestNIST
+    public class Test11:ITestNIST
     {
         /// <summary>Serial Test</summary>
         /// <returns></returns>

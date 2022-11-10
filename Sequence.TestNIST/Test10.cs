@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test10:ITestNIST
+    public class Test10:ITestNIST
     {
         /// <summary>Linear Complexity Test</summary>
         /// <returns>pValue, isRandom</returns>

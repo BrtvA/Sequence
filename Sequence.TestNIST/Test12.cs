@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test12:ITestNIST
+    public class Test12:ITestNIST
     {
         /// <summary>Approximate Entropy Test</summary>
         /// <returns>pValue, isRandom</returns>

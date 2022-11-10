@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test1 : ITestNIST
+    public class Test01 : ITestNIST
     {
         /// <summary>Frequency (Monobit) Test</summary>
         /// <returns>pValue, isRandom</returns>

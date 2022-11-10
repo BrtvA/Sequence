@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models
+namespace Sequence.TestNIST
 {
-    internal class SequenceParameters
+    public class SequenceParameters
     {
         public static string _sequence;
         public static int _sequenceLength;

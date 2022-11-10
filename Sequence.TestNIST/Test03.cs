@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test3:ITestNIST
+    public class Test03:ITestNIST
     {
         /// <summary>Runs Test</summary>
         /// <returns>pValue, isRandom</returns>

@@ -1,4 +1,4 @@
-﻿using Sequence.Models;
+﻿using Sequence.TestNIST;
 using System;
 using System.Collections.Generic;
 using System.Linq;

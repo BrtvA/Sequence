@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test13:ITestNIST
+    public class Test13:ITestNIST
     {
         /// <summary>Cumulative Sums (Cusum) Test</summary>
         /// <returns>pValue, isRandom</returns>

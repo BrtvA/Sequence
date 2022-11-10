@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal interface ITestNIST
+    public interface ITestNIST
     {
         Tuple<double[], bool> Test();
     }

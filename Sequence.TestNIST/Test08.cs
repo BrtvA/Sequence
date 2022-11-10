@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test8:ITestNIST
+    public class Test08:ITestNIST
     {
         /// <summary> Overlapping Template Matching Test</summary>
         /// <returns></returns>

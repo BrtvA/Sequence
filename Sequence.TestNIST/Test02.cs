@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sequence.Models.TestNIST
+namespace Sequence.TestNIST
 {
-    internal class Test2:ITestNIST
+    public class Test02:ITestNIST
     {
         /// <summary>Frequency Test within a Block</summary>
         /// <returns>pValue, isRandom</returns>
