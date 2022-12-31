@@ -11,350 +11,167 @@
         xmlns:ii="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="720" Width="1280"
-        WindowStyle="None"
-        Background="Transparent"
-        AllowsTransparency="True"
         WindowState="{Binding WindowState, Mode=TwoWay}"
         MouseDown="Window_MouseMove"
         WindowStartupLocation="CenterScreen"
-        Icon="/Resources/bit101.jpg">
+        Icon="/Resources/bit101.jpg"
+        Style="{StaticResource windowStyle}">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    
     <Window.Resources>
-        <Style x:Key="BlueButton" TargetType="Button">
-            <Setter Property="Background" Value="#28AEED"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#1073D5"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <ControlTemplate x:Key="BlueButtonControl" TargetType="Button">
-            <Border CornerRadius="5"
-                    Background="{TemplateBinding Background}">
-                <ContentPresenter VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"/>
-            </Border>
-        </ControlTemplate>
+        
     </Window.Resources>
-    <Border CornerRadius="15"
-            BorderThickness="5">
-        <Border.BorderBrush>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#462AD8" Offset="0"/>
-                <GradientStop Color="#DA34AE" Offset="0.75"/>
-                <GradientStop Color="#8A16C1" Offset="1"/>
-            </LinearGradientBrush>
-        </Border.BorderBrush>
+    
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="{Binding RowPanelHeight}"/>
+            <RowDefinition Height="{Binding RowPanelHeight}"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
 
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color="#060531" Offset="0"/>
-                <GradientStop Color="#1B1448" Offset="0.75"/>
-            </LinearGradientBrush>
-        </Border.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="5"/>
+            </Grid.ColumnDefinitions>
 
-        <Grid x:Name="mainGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="{Binding RowPanelHeight}"/>
-                <RowDefinition Height="{Binding RowPanelHeight}"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="5"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Text="Sequence" 
-                           Foreground="DarkGray" 
+            <TextBlock Text="Sequence" 
                            FontSize="16"
                            FontWeight="Bold"
-                           FontFamily="Montserrat"
                            Grid.Column="0"
-                           VerticalAlignment="Center"
-                           Margin="20,0,0,0"/>
+                           Margin="20,0,0,0"
+                           Style="{StaticResource textStyle}"/>
 
-                <Button x:Name="minimizeButton"
-                        BorderThickness="0"
+            <Button x:Name="minimizeButton"
                         Content="-"
-                        Foreground="White"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        FontFamily="Montserrat"
-                        Cursor="Hand"
                         Grid.Column="1"
-                        Command="{Binding MinimizeApplicationCommand}">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#28AEED"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#278BEF"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="18" Height="18" 
-                                    CornerRadius="5"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                        Style="{StaticResource minimizeBtnStyle}"
+                        Command="{Binding MinimizeApplicationCommand}"/>
 
-                <Button x:Name="closeButton"
-                        BorderThickness="0"
+
+            <Button x:Name="closeButton"
                         Content="X"
-                        Foreground="White"
-                        FontSize="16"
-                        FontFamily="Montserrat"
-                        Cursor="Hand"
                         Grid.Column="2"
-                        Command="{Binding CloseApplicationCommand}">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#DA34AE"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#C62DAE"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="18" Height="18" 
-                                    CornerRadius="5"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-            </Grid>
+                        Style="{StaticResource closeBtnStyle}"
+                        Command="{Binding CloseApplicationCommand}"/>
+        </Grid>
 
-            <StackPanel Grid.Row="1">
-                <Button x:Name="openFileButton" 
-                        BorderThickness="0"
-                        Foreground="White"
-                        FontSize="20"
+        <StackPanel Grid.Row="1">
+            <Button x:Name="openFileButton" 
                         Content="Open File"
-                        FontFamily="Montserrat"
-                        Cursor="Hand"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Height="30"
                         Width="120"
                         Margin="20,10,0,0"
                         Command="{Binding OpenFileCommand}"
-                        Style="{StaticResource BlueButton}"
-                        Template="{StaticResource BlueButtonControl}">
-                </Button>
+                        Style="{StaticResource blueBtnStyle}"/>
 
-                <TextBox x:Name="openFileText"
-                         BorderThickness="0,0,0,2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="20"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
+            <TextBox x:Name="openFileText"
                          Width="500"
                          Margin="170,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding OpenFileTxt}"/>
+                         Text="{Binding OpenFileTxt}"
+                         Style="{StaticResource lineTextStyle}"/>
 
-                <ComboBox x:Name="modeBox"
-                         BorderThickness="2"
-                         Foreground="Black"
-                         Background="Transparent"
-                         FontSize="20"
-                         FontFamily="Montserrat"
-                         BorderBrush="DarkGray"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="210"
-                         Margin="350,-29,0,0"
-                         SelectedIndex="{Binding ModeBoxSelectedIndex}">
-                    <ii:Interaction.Triggers>
-                        <ii:EventTrigger EventName="SelectionChanged">
-                            <ii:InvokeCommandAction Command="{Binding ModeBoxSelectionChangedCommand}" />
-                        </ii:EventTrigger>
-                    </ii:Interaction.Triggers>
-                    <ComboBoxItem Content="Intensity fluctuation"/>
-                    <ComboBoxItem Content="Bit sequence"/>
-                    <ComboBox.Resources>
-                        <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="White"/>
-                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#278BEF"/>
-                    </ComboBox.Resources>
-                </ComboBox>
-            </StackPanel>
+            <ComboBox x:Name="modeBox"
+                          FontSize="20"
+                          Width="210"
+                          Margin="350,-29,0,0"
+                          SelectedIndex="{Binding ModeBoxSelectedIndex}"
+                          Style="{StaticResource pValueBoxStyle}">
+                <ii:Interaction.Triggers>
+                    <ii:EventTrigger EventName="SelectionChanged">
+                        <ii:InvokeCommandAction Command="{Binding ModeBoxSelectionChangedCommand}" />
+                    </ii:EventTrigger>
+                </ii:Interaction.Triggers>
+                <ComboBoxItem Content="Intensity fluctuation"/>
+                <ComboBoxItem Content="Bit sequence"/>
+            </ComboBox>
+        </StackPanel>
 
-            <StackPanel x:Name="paramPanel1" Grid.Row="2" Visibility="{Binding ParamPanelVisibility}">
-                <TextBlock Text="ADC bit's:"
-                           FontSize="20"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
+        <StackPanel x:Name="paramPanel1" Grid.Row="2" 
+                        Visibility="{Binding ParamPanelVisibility}">
+            <TextBlock Text="ADC bit's:"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Margin="30,10,0,0"/>
-                <TextBox x:Name="numberBitText"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="20"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Margin="30,10,0,0"
+                           Style="{StaticResource textStyle}"/>
+            <TextBox x:Name="numberBitText"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
                          Width="200"
                          Margin="170,-29,0,0"
                          Text="{Binding NumberBitTxt}"
-                         TextAlignment="Center"/>
-                <TextBlock Text="Number of LSB's:"
-                           FontSize="20"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
+                         Style="{StaticResource paramTextStyle}"/>
+            <TextBlock Text="Number of LSB's:"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Margin="0,-29,0,0"/>
-                <TextBox x:Name="LSBText"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="20"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Margin="0,-29,0,0"
+                           Style="{StaticResource textStyle}"/>
+            <TextBox x:Name="LSBText"
                          HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
                          Width="200"
                          Margin="500,-29,0,0"
                          Text="{Binding LSBTxt}"
-                         TextAlignment="Center"/>
-            </StackPanel>
+                         Style="{StaticResource paramTextStyle}"/>
+        </StackPanel>
 
-            <StackPanel x:Name="paramPanel2" Grid.Row="3" Visibility="{Binding ParamPanelVisibility}">
-                <TextBlock Text="Shift time, ns:"
-                           FontSize="20"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
+        <StackPanel x:Name="paramPanel2" Grid.Row="3" 
+                        Visibility="{Binding ParamPanelVisibility}">
+            <TextBlock Text="Shift time, ns:"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Margin="30,10,0,0"/>
-                <TextBox x:Name="timeShiftText"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="20"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Margin="30,10,0,0"
+                           Style="{StaticResource textStyle}"/>
+            <TextBox x:Name="timeShiftText"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
                          Width="200"
                          Margin="170,-29,0,0"
                          Text="{Binding TimeShiftTxt}"
-                         TextAlignment="Center"/>
-                <CheckBox  x:Name="timeLengthCheck"
+                         Style="{StaticResource paramTextStyle}"/>
+            <CheckBox  x:Name="timeLengthCheck"
+                           Width="160"
                            Content="Time series, ns:"
                            FontSize="20"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            Margin="0,-29,0,0"
-                           IsChecked="{Binding TimeLengthChecked}"/>
-                <TextBox x:Name="timeLengthText"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="20"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           IsChecked="{Binding TimeLengthChecked}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="timeLengthText"
                          HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
                          Width="200"
                          Margin="500,-29,0,0"
                          Text="{Binding TimeLengthTxt}"
-                         TextAlignment="Center"/>
-            </StackPanel>
+                         Style="{StaticResource paramTextStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="4">
-                <Button x:Name="executeTestButton" 
-                        BorderThickness="0"
-                        Foreground="White"
-                        FontSize="20"
+        <StackPanel Grid.Row="4">
+            <Button x:Name="executeTestButton" 
                         Content="Execute Test"
-                        FontFamily="Montserrat"
-                        Cursor="Hand"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Height="30"
-                        Width="150"
                         Margin="20,10,0,0"
                         IsEnabled="{Binding ExecuteTestButtonEnabled}"
-                        Style="{StaticResource BlueButton}"
-                        Template="{StaticResource BlueButtonControl}"
-                        Command="{Binding ExecuteTestCommand}">
-                </Button>
+                        Style="{StaticResource blueBtnStyle}"
+                        Command="{Binding ExecuteTestCommand}"/>
 
-                <Button x:Name="saveButton" 
-                        BorderThickness="0"
-                        Foreground="White"
-                        FontSize="20"
+            <Button x:Name="saveButton" 
                         Content="Save Sequence"
-                        FontFamily="Montserrat"
-                        Cursor="Hand"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Height="30"
-                        Width="150"
                         Margin="200,-29,0,0"
                         IsEnabled="{Binding SaveButtonEnabled}"
-                        Style="{StaticResource BlueButton}"
-                        Template="{StaticResource BlueButtonControl}"
+                        Style="{StaticResource blueBtnStyle}"
                         Visibility="{Binding ParamPanelVisibility}"
                         Command="{Binding SaveTestCommand}">
-                </Button>
+            </Button>
 
-                <ProgressBar Name="testProgress"
+            <ProgressBar Name="testProgress"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
                              Background="Transparent"
@@ -368,7 +185,7 @@
                              Value="{Binding ValueTestProgress}"
                              Visibility="{Binding TestProgressVisibility}"/>
 
-                <TextBlock Text="Progress"
+            <TextBlock Text="Progress"
                            FontSize="16"
                            FontWeight="Bold"
                            Foreground="LightGray"
@@ -378,508 +195,248 @@
                            Width="150"
                            Margin="660,-29,0,0"
                            Visibility="{Binding TestProgressVisibility}"/>
-            </StackPanel>
+        </StackPanel>
 
-            <StackPanel Grid.Row="5">
-                <TextBlock Text="Bit Length:"
-                           FontSize="20"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
+        <StackPanel Grid.Row="5">
+            <TextBlock Text="Bit Length:"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Margin="30,10,0,0"/>
-                <TextBox x:Name="bitLengthText"
-                         BorderThickness="0,0,0,2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="20"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
+                           Margin="30,10,0,0"
+                           Style="{StaticResource textStyle}"/>
+            <TextBox x:Name="bitLengthText"
                          Width="200"
                          Margin="170,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding BitLengthTxt}"/>
-            </StackPanel>
+                         Text="{Binding BitLengthTxt}"
+                         Style="{StaticResource lineTextStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="6">
-                <CheckBox  x:Name="test1Check"
+        <StackPanel Grid.Row="6">
+            <CheckBox  x:Name="test1Check"
                            Content="1) Frequency (Monobit) Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
                            Margin="30,10,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[0]}"
-                           Background="{Binding BackgroundCheck[0]}"/>
-                <TextBox x:Name="test1Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[0]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test1Text"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[0][0]}"/>
-                <CheckBox  x:Name="test9Check"
+                         Text="{Binding TestListTxt[0][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+            <CheckBox  x:Name="test9Check"
                            Content="9) Maurer's &quot;Universal Statistical&quot; Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            Margin="400,-29,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[8]}"
-                           Background="{Binding BackgroundCheck[8]}"/>
-                <TextBox x:Name="test9Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[8]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test9Text"
                          HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="950,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[8][0]}"/>
-            </StackPanel>
+                         Text="{Binding TestListTxt[8][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="7">
-                <CheckBox  x:Name="test2Check"
+        <StackPanel Grid.Row="7">
+            <CheckBox  x:Name="test2Check"
                            Content="2) Frequency Test within a Block"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
                            Margin="30,10,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[1]}"
-                           Background="{Binding BackgroundCheck[1]}"/>
-                <TextBox x:Name="test2Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[1]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test2Text"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[1][0]}"/>
-                <CheckBox  x:Name="test10Check"
+                         Text="{Binding TestListTxt[1][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+            <CheckBox  x:Name="test10Check"
                            Content="10) Linear Complexity"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            Margin="400,-29,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[9]}"
-                           Background="{Binding BackgroundCheck[9]}"/>
-                <TextBox x:Name="test10Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[9]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test10Text"
                          HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="950,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[9][0]}"/>
-            </StackPanel>
+                         Text="{Binding TestListTxt[9][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="8">
-                <CheckBox  x:Name="test3Check"
+        <StackPanel Grid.Row="8">
+            <CheckBox  x:Name="test3Check"
                            Content="3) Runs Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
                            Margin="30,10,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[2]}"
-                           Background="{Binding BackgroundCheck[2]}"/>
-                <TextBox x:Name="test3Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[2]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test3Text"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[2][0]}"/>
-                <CheckBox  x:Name="test11Check"
+                         Text="{Binding TestListTxt[2][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+            <CheckBox  x:Name="test11Check"
                            Content="11) Serial Test"
                            FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            Margin="400,-29,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[10]}"
-                           Background="{Binding BackgroundCheck[10]}"/>
-                <ComboBox x:Name="test11Box"
-                         BorderThickness="2"
-                         Foreground="Black"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         BorderBrush="DarkGray"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
-                         Margin="950,-29,0,0"
-                         SelectedIndex="{Binding ComboBoxSelectedIndex}"
-                         ItemsSource="{Binding TestListTxt[10]}"/>
-            </StackPanel>
+                           Background="{Binding BackgroundCheck[10]}"
+                           Style="{StaticResource checkStyle}"/>
+            <ComboBox x:Name="test11Box"
+                          Margin="950,-29,0,0"
+                          SelectedIndex="{Binding ComboBoxSelectedIndex}"
+                          ItemsSource="{Binding TestListTxt[10]}"
+                          Style="{StaticResource pValueBoxStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="9">
-                <CheckBox  x:Name="test4Check"
+        <StackPanel Grid.Row="9">
+            <CheckBox  x:Name="test4Check"
                            Content="4) Test for the Longest Run of One in a Block"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
                            Margin="30,10,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[3]}"
-                           Background="{Binding BackgroundCheck[3]}"/>
-                <TextBox x:Name="test4Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[3]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test4Text"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[3][0]}"/>
-                <CheckBox  x:Name="test12Check"
+                         Text="{Binding TestListTxt[3][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+            <CheckBox  x:Name="test12Check"
                            Content="12) Approximate Entropy Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            Margin="400,-29,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[11]}"
-                           Background="{Binding BackgroundCheck[11]}"/>
-                <TextBox x:Name="test12Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[11]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test12Text"
                          HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="950,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[11][0]}"/>
-            </StackPanel>
+                         Text="{Binding TestListTxt[11][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="10">
-                <CheckBox  x:Name="test5Check"
+        <StackPanel Grid.Row="10">
+            <CheckBox  x:Name="test5Check"
                            Content="5) Binary Matrix Rank Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
                            Margin="30,10,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[4]}"
-                           Background="{Binding BackgroundCheck[4]}"/>
-                <TextBox x:Name="test5Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[4]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test5Text"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[4][0]}"/>
-                <CheckBox  x:Name="test13Check"
+                         Text="{Binding TestListTxt[4][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+            <CheckBox  x:Name="test13Check"
                            Content="13) Cumulative Sums (Cusum) Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            Margin="400,-29,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[12]}"
-                           Background="{Binding BackgroundCheck[12]}"/>
-                <ComboBox x:Name="test13Box"
-                         BorderThickness="2"
-                         Foreground="Black"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         BorderBrush="DarkGray"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
-                         Margin="950,-29,0,0"
-                         SelectedIndex="{Binding ComboBoxSelectedIndex}"
-                         ItemsSource="{Binding TestListTxt[12]}"/>
-            </StackPanel>
+                           Background="{Binding BackgroundCheck[12]}"
+                           Style="{StaticResource checkStyle}"/>
+            <ComboBox x:Name="test13Box"
+                          Margin="950,-29,0,0"
+                          SelectedIndex="{Binding ComboBoxSelectedIndex}"
+                          ItemsSource="{Binding TestListTxt[12]}"
+                          Style="{StaticResource pValueBoxStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="11">
-                <CheckBox  x:Name="test6Check"
+        <StackPanel Grid.Row="11">
+            <CheckBox  x:Name="test6Check"
                            Content="6) Discrete Fourier Transform (Spectral) Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
                            Margin="30,10,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[5]}"
-                           Background="{Binding BackgroundCheck[5]}"/>
-                <TextBox x:Name="test6Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[5]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test6Text"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[5][0]}"/>
-                <CheckBox  x:Name="test14Check"
+                         Text="{Binding TestListTxt[5][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+            <CheckBox  x:Name="test14Check"
                            Content="14) Random Excursions Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            Margin="400,-29,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[13]}"
-                           Background="{Binding BackgroundCheck[13]}"/>
-                <ComboBox x:Name="test14Box"
-                         BorderThickness="2"
-                         Foreground="Black"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         BorderBrush="DarkGray"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
-                         Margin="950,-29,0,0"
-                         SelectedIndex="{Binding ComboBoxSelectedIndex}"
-                         ItemsSource="{Binding TestListTxt[13]}"/>
-            </StackPanel>
+                           Background="{Binding BackgroundCheck[13]}"
+                           Style="{StaticResource checkStyle}"/>
+            <ComboBox x:Name="test14Box"
+                          Margin="950,-29,0,0"
+                          SelectedIndex="{Binding ComboBoxSelectedIndex}"
+                          ItemsSource="{Binding TestListTxt[13]}"
+                          Style="{StaticResource pValueBoxStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="12">
-                <CheckBox  x:Name="test7Check"
+        <StackPanel Grid.Row="12">
+            <CheckBox  x:Name="test7Check"
                            Content="7) Non-overlapping Tepmlate Matching Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
                            Margin="30,10,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[6]}"
-                           Background="{Binding BackgroundCheck[6]}"/>
-                <TextBox x:Name="test7Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[6]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test7Text"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[6][0]}"/>
-                <CheckBox  x:Name="test15Check"
+                         Text="{Binding TestListTxt[6][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+            <CheckBox  x:Name="test15Check"
                            Content="15) Random Excursions Variant Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            Margin="400,-29,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[14]}"
-                           Background="{Binding BackgroundCheck[14]}"/>
-                <ComboBox x:Name="test15Box"
-                         BorderThickness="2"
-                         Foreground="Black"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         BorderBrush="DarkGray"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
-                         Margin="950,-29,0,0"
-                         SelectedIndex="{Binding ComboBoxSelectedIndex}"
-                         ItemsSource="{Binding TestListTxt[14]}"/>
-            </StackPanel>
+                           Background="{Binding BackgroundCheck[14]}"
+                           Style="{StaticResource checkStyle}"/>
+            <ComboBox x:Name="test15Box"
+                          BorderThickness="2"
+                          Foreground="Black"
+                          Background="Transparent"
+                          FontSize="16"
+                          FontFamily="Montserrat"
+                          BorderBrush="DarkGray"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Height="30"
+                          Width="250"
+                          Margin="950,-29,0,0"
+                          SelectedIndex="{Binding ComboBoxSelectedIndex}"
+                          ItemsSource="{Binding TestListTxt[14]}"
+                          Style="{StaticResource pValueBoxStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="13">
-                <CheckBox  x:Name="test8Check"
+        <StackPanel Grid.Row="13">
+            <CheckBox  x:Name="test8Check"
                            Content="8) Overlapping Template Matching Test"
-                           FontSize="16"
-                           Foreground="DarkGray"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
                            Margin="30,10,0,0"
-                           Height="30"
-                           Width="350"
                            IsChecked="{Binding TestChecked[7]}"
-                           Background="{Binding BackgroundCheck[7]}"/>
-                <TextBox x:Name="test8Text"
-                         BorderThickness="2"
-                         Foreground="White"
-                         Background="Transparent"
-                         FontSize="16"
-                         FontFamily="Montserrat"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
+                           Background="{Binding BackgroundCheck[7]}"
+                           Style="{StaticResource checkStyle}"/>
+            <TextBox x:Name="test8Text"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Height="30"
-                         Width="250"
                          Margin="400,-29,0,0"
-                         IsEnabled="false"
-                         Text="{Binding TestListTxt[7][0]}"/>
-            </StackPanel>
+                         Text="{Binding TestListTxt[7][0]}"
+                         Style="{StaticResource pValueTextStyle}"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="14">
-                <Button x:Name="selectTestButton" 
-                        BorderThickness="0"
-                        Foreground="White"
-                        FontSize="20"
+        <StackPanel Grid.Row="14">
+            <Button x:Name="selectTestButton" 
                         Content="Select All Test's"
-                        FontFamily="Montserrat"
-                        Cursor="Hand"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Height="30"
-                        Width="150"
                         Margin="20,10,0,0"
-                        Style="{StaticResource BlueButton}"
-                        Template="{StaticResource BlueButtonControl}"
+                        Style="{StaticResource blueBtnStyle}"
                         Command="{Binding SelectAllTestCommand}">
-                </Button>
-                <Button x:Name="resetButton" 
-                        BorderThickness="0"
-                        Foreground="White"
-                        FontSize="20"
+            </Button>
+            <Button x:Name="resetButton" 
                         Content="Reset"
-                        FontFamily="Montserrat"
-                        Cursor="Hand"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Height="30"
-                        Width="150"
                         Margin="200,-29,0,0"
-                        Style="{StaticResource BlueButton}"
-                        Template="{StaticResource BlueButtonControl}"
+                        Style="{StaticResource blueBtnStyle}"
                         Command="{Binding ResetCommand}">
-                </Button>
-            </StackPanel>
-        </Grid>
-    </Border>
+            </Button>
+        </StackPanel>
+    </Grid>
 </Window>
