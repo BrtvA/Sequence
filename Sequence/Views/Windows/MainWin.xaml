@@ -1,0 +1,317 @@
+﻿<Window x:Class="Sequence.Views.Windows.MainWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sequence.Views.Windows"
+        mc:Ignorable="d"
+        
+        Title="Sequence" Width="1280" SizeToContent="Height"
+        x:Name="window"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource windowsStyle}"
+        Template="{StaticResource windowsTemplate}"
+        Icon="/Resources/bit101.jpg"
+        MouseDown="window_MouseDown">
+    <StackPanel>
+        <Grid x:Name="paramGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition 
+                               Style="{StaticResource visibilityRow50}"/>
+                <RowDefinition 
+                               Style="{StaticResource visibilityRow50}"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="213"/>
+                <ColumnDefinition Width="213"/>
+                <ColumnDefinition Width="213"/>
+                <ColumnDefinition Width="213"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="1" 
+                    Grid.Column="1"
+                    Content="Open FIle"
+                    Style="{StaticResource blueBtn}"/>
+            
+            <TextBox Grid.Row="1"
+                     Grid.Column="2"
+                     Grid.ColumnSpan="3"
+                     Style="{StaticResource lineOnText}"/>
+
+            <ComboBox x:Name="modeBox"
+                      Grid.Row="1"
+                      Grid.Column="5"
+                      Margin="10,5,10,5"
+                      Style="{StaticResource comboBox}">
+                <ComboBoxItem Content="Intensity fluctuation"/>
+                <ComboBoxItem Content="Bit sequence"/>
+            </ComboBox>
+
+            <TextBlock Grid.Row="3"
+                       Grid.Column="1"
+                       Text="ADC bit's:"
+                       Style="{StaticResource textBlock}"/>
+
+            <TextBox Grid.Row="3"
+                     Grid.Column="2"
+                     Style="{StaticResource textBox}"/>
+
+            <TextBlock Grid.Row="3"
+                       Grid.Column="4"
+                       Text="Number of LSB's:"
+                       Style="{StaticResource textBlock}"/>
+
+            <TextBox Grid.Row="3"
+                     Grid.Column="5"
+                     Style="{StaticResource textBox}"/>
+
+            <TextBlock Grid.Row="4"
+                       Grid.Column="1"
+                       Text="Shift time, ns:"
+                       Style="{StaticResource textBlock}"/>
+
+            <TextBox Grid.Row="4"
+                     Grid.Column="2"
+                     Style="{StaticResource textBox}"/>
+
+            <CheckBox Grid.Row="4"
+                      Grid.Column="4"
+                      Content="Time series, ns:"
+                      FontSize="20"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="4"
+                     Grid.Column="5"
+                     Style="{StaticResource textBox}"/>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="43"/>
+                <ColumnDefinition Width="639"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Content="Execute Test"
+                    Style="{StaticResource blueBtn}"/>
+
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    Content="Save sequence"
+                    Style="{StaticResource visibilityBlueBtn}"/>
+
+            <ProgressBar Grid.Row="1"
+                         Grid.Column="4"
+                         Minimum="0"
+                         Maximum="100"
+                         Value="50"
+                         Style="{StaticResource progressBar}"/>
+
+            <TextBlock Grid.Row="3"
+                       Grid.Column="1"
+                       Text="Bit length:"
+                       Style="{StaticResource textBlock}"/>
+
+            <TextBox Grid.Row="3"
+                     Grid.Column="2"
+                     Style="{StaticResource lineOnText}"/>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="420"/>
+                <ColumnDefinition Width="213"/>
+                <ColumnDefinition Width="383"/>
+                <ColumnDefinition Width="213"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <CheckBox Grid.Row="0"
+                      Grid.Column="1"
+                      Content="1) Frequency (Monobit) Test"
+                      Style="{StaticResource checkBox}"/>
+            
+            <TextBox Grid.Row="0"
+                     Grid.Column="2"
+                     Style="{StaticResource resultText}"/>
+
+            <CheckBox Grid.Row="0"
+                      Grid.Column="3"
+                      Content="9) Maurer's &quot;Universal Statistical&quot; Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="0"
+                     Grid.Column="4"
+                     Style="{StaticResource resultText}"/>
+            
+            <CheckBox Grid.Row="1"
+                      Grid.Column="1"
+                      Content="2) Frequency Test within a Block"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="1"
+                     Grid.Column="2"
+                     Style="{StaticResource resultText}"/>
+
+            <CheckBox Grid.Row="1"
+                      Grid.Column="3"
+                      Content="10) Linear Complexity"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="1"
+                     Grid.Column="4"
+                     Style="{StaticResource resultText}"/>
+
+            <CheckBox Grid.Row="2"
+                      Grid.Column="1"
+                      Content="3) Runs Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="2"
+                     Grid.Column="2"
+                     Style="{StaticResource resultText}"/>
+
+            <CheckBox Grid.Row="2"
+                      Grid.Column="3"
+                      Content="11) Serial Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <ComboBox Grid.Row="2"
+                      Grid.Column="4"
+                      Style="{StaticResource comboBox}"/>
+
+            <CheckBox Grid.Row="3"
+                      Grid.Column="1"
+                      Content="4) Test for the Longest Run of One in a Block"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="3"
+                     Grid.Column="2"
+                     Style="{StaticResource resultText}"/>
+
+            <CheckBox Grid.Row="3"
+                      Grid.Column="3"
+                      Content="12) Approximate Entropy Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="3"
+                     Grid.Column="4"
+                     Style="{StaticResource resultText}"/>
+
+            <CheckBox Grid.Row="4"
+                      Grid.Column="1"
+                      Content="5) Binary Matrix Rank Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="4"
+                     Grid.Column="2"
+                     Style="{StaticResource resultText}"/>
+
+            <CheckBox Grid.Row="4"
+                      Grid.Column="3"
+                      Content="13) Cumulative Sums (Cusum) Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <ComboBox Grid.Row="4"
+                      Grid.Column="4"
+                      Style="{StaticResource comboBox}"/>
+
+            <CheckBox Grid.Row="5"
+                      Grid.Column="1"
+                      Content="6) Discrete Fourier Transform (Spectral) Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="5"
+                     Grid.Column="2"
+                     Style="{StaticResource resultText}"/>
+
+            <CheckBox Grid.Row="5"
+                      Grid.Column="3"
+                      Content="14) Random Excursions Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <ComboBox Grid.Row="5"
+                      Grid.Column="4"
+                      Style="{StaticResource comboBox}"/>
+
+            <CheckBox Grid.Row="6"
+                      Grid.Column="1"
+                      Content="7) Non-overlapping Template Matching Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="6"
+                     Grid.Column="2"
+                     Style="{StaticResource resultText}"/>
+
+            <CheckBox Grid.Row="6"
+                      Grid.Column="3"
+                      Content="15) Random Excursions Variant Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <ComboBox Grid.Row="6"
+                      Grid.Column="4"
+                      Style="{StaticResource comboBox}"/>
+
+            <CheckBox Grid.Row="7"
+                      Grid.Column="1"
+                      Content="8) Overlapping Template Matching Test"
+                      Style="{StaticResource checkBox}"/>
+
+            <TextBox Grid.Row="7"
+                     Grid.Column="2"
+                     Style="{StaticResource resultText}"/>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="selectAllBtn"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Content="Select All Test's"
+                    Style="{StaticResource blueBtn}"/>
+
+            <Button x:Name="resetBtn"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Content="Reset"
+                    Style="{StaticResource blueBtn}"/>
+        </Grid>
+    </StackPanel>
+</Window>
