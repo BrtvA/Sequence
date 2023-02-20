@@ -16,6 +16,8 @@ using System.Windows.Controls;
 using Sequence.TestNIST;
 using System.Windows.Media.Animation;
 using System.Text.RegularExpressions;
+using System.Reflection;
+using Sequence.Factories;
 
 namespace Sequence.ViewModels
 {
@@ -28,6 +30,7 @@ namespace Sequence.ViewModels
 
         private InputModel _inputModel;
         OpenFileDialog _file;
+        SaveFileDialog _saveFile;
 
         public MainWindowViewModel()
         {
@@ -49,8 +52,10 @@ namespace Sequence.ViewModels
             IsCustomTime = _inputModel.IsCustomTimeSeries;
             TxtTimeSeries = _inputModel.TimeSeries.ToString();
 
-            OpenFileCommand = new ActionCommand(OnOpenFileCommandExecuted, CanOpenFileCommandExecute);
-            ExecuteTestCommand = new ActionCommand(OnExecuteTestCommandExecutedAsync, CanExecuteTestCommandExecute);
+            OpenFileCommand = new ActionCommand(OnOpenFileCommandExecuted,
+                                                CanOpenFileCommandExecute);
+            ExecuteTestCommand = new ActionCommand(OnExecuteTestCommandExecutedAsync,
+                                                   CanExecuteTestCommandExecute);
             ModeBoxSelectionChangedCommand = new ActionCommand(OnModeBoxSelectionChangedCommandExecuted,
                                                                CanModeBoxSelectionChangedCommandExecute);
             SerializedInputModelCommand = new ActionCommand(OnSerializedInputModelCommandExecuted,
@@ -277,113 +282,128 @@ namespace Sequence.ViewModels
         public ICommand ExecuteTestCommand { get; }
 
         private bool CanExecuteTestCommandExecute(object p) => WaitingAction & _file != null 
-                                                             & (SelectedIndex == 1 || (SelectedIndex == 0 & _isValidatedBitADC & _isValidatedLSB 
-                                                                                       & _isValidatedTimeShift & _isValidatedTimeSeries));
+                                                             & (SelectedIndex == 1 || (SelectedIndex == 0
+                                                                                       & _isValidatedBitADC
+                                                                                       & _isValidatedLSB 
+                                                                                       & _isValidatedTimeShift
+                                                                                       & _isValidatedTimeSeries));
 
         private async void OnExecuteTestCommandExecutedAsync(object p)
         {
             ClearField();
             MaximumTestProgress = NumActiveCheck();
-            ValueTestProgress = 0;
-            WaitingAction = false;
-            VisibilityProgressBar = "Visible";
+            ChangeActionUI("Visible");
 
             _inputModel = new InputModel(_file.FileName, TxtBitADC, TxtLSB, TxtTimeShift, IsCustomTime, TxtTimeSeries);
 
             SequenceMaker sequenceMaker = new SequenceMaker(_inputModel, SelectedIndex);
-            if (await Task.Run(()=>sequenceMaker.GetSequence()))
+            if (await Task.Run(() => sequenceMaker.GetSequence()))
             {
                 BitSequenceLength = SequenceParameters._sequenceLength.ToString();
-                InitiateTests();
+                await InitiateTestsAsync();
+            }
+            else
+            {
+                ChangeActionUI("Hidden");
             }
         }
-
-        private void InitiateTests()
+        private async Task InitiateTestsAsync()
         {
-            TestResult testResult = new TestResult();
-            ITestNIST[] testNIST = { 
-                new Test01(), new Test02(), new Test03(), new Test04(), new Test05(),
-                new Test06(), new Test07(), new Test08(), new Test09(), new Test10(),
-                new Test11(), new Test12(), new Test13(), new Test14(), new Test15() };
-
             List<string>[] pValueList = new List<string>[15];
             string[] background = new string[15];
 
-            Task.Run(() =>
+            TestResult testResult = new TestResult();
+            List<ITestNIST> testNIST = new List<ITestNIST>();
+            List<int> indexTest = SwitchOnTest(ref testNIST, ref background);
+
+            Task[] tasks = new Task[testNIST.Count];
+
+            int i = 0;
+            foreach (var test in testNIST)
             {
-                while (ValueTestProgress < MaximumTestProgress)
+                int index = indexTest[i];
+                tasks[i] = new Task(() =>
                 {
-                }
+                    var result = testResult.Test(test);
+
+                    if (result.Item2)
+                    {
+                        background[index] = "Green";//Тест пройден
+                    }
+                    else if (result.Item1[0] == -1)
+                    {
+                        background[index] = "Yellow";//Последовательность не удовлетворяет начальным условиям
+                    }
+                    else
+                    {
+                        background[index] = "Red";//Тест не пройден
+                    }
+
+                    pValueList[index] = new List<string>();
+                    for (int k = 0; k < result.Item1.Length; k++)
+                    {
+                        result.Item1[k] = Math.Round(result.Item1[k], 13);
+                        switch (index)
+                        {
+                            case 12:
+                                if (k == 0) pValueList[index].Add($"Forward: {result.Item1[k]}");
+                                if (k == 1) pValueList[index].Add($"Backward: {result.Item1[k]}");
+                                break;
+
+                            case 13:
+                                if (k < 4) pValueList[index].Add($"x = {-4 + k}: {result.Item1[k]}");
+                                else if (k > 4) pValueList[index].Add($"x = {-3 + k}: {result.Item1[k]}");
+                                else pValueList[index].Add($"x = 1: {result.Item1[k]}");
+                                break;
+
+                            case 14:
+                                if (k < 9) pValueList[index].Add($"x = {-9 + k}: {result.Item1[k]}");
+                                else if (k > 9) pValueList[index].Add($"x = {-8 + k}: {result.Item1[k]}");
+                                else pValueList[index].Add($"x = 1: {result.Item1[k]}");
+                                break;
+
+                            default:
+                                pValueList[index].Add(result.Item1[k].ToString());
+                                break;
+                        }
+                    }
+                    ValueTestProgress++;
+                });
+                tasks[i].Start();
+                i++;
+            }
+
+            await Task.Run(() =>
+            {
+                Task.WaitAll(tasks);
+
                 TestListTxt = pValueList;
                 BackgroundCheck = background;
-                VisibilityProgressBar = "Hidden";
-                WaitingAction = true;
-                ComboBoxSelectedIndex = 0;
+                ChangeActionUI("Hidden");
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
             });
+        }
 
-            int j = 0;
-            foreach (var test in testNIST)
+        private List<int> SwitchOnTest(ref List<ITestNIST> testNIST, ref string[] background)
+        {
+            List<int> indexTest= new List<int>();
+
+            for (int i = 0; i < TestChecked.Length; i++)
             {
-                if (TestChecked[j])
+                if (TestChecked[i])
                 {
-                    var index = j;
-                    Task.Run(() =>
-                    {
-                        var result = testResult.Test(test);
-
-                        if (result.Item2)
-                        {
-                            background[index] = "Green";//Тест пройден
-                        }
-                        else if (result.Item1[0] == -1)
-                        {
-                            background[index] = "Yellow";//Последовательность не удовлетворяет начальным условиям
-                        }
-                        else
-                        {
-                            background[index] = "Red";//Тест не пройден
-                        }
-
-                        pValueList[index] = new List<string>();
-                        for (int k = 0; k < result.Item1.Length; k++)
-                        {
-                            result.Item1[k] = Math.Round(result.Item1[k], 13);
-                            switch (index)
-                            {
-                                case 12:
-                                    if (k == 0) pValueList[index].Add($"Forward: {result.Item1[k]}");
-                                    if (k == 1) pValueList[index].Add($"Backward: {result.Item1[k]}");
-                                    break;
-
-                                case 13:
-                                    if (k < 4) pValueList[index].Add($"x = {-4 + k}: {result.Item1[k]}");
-                                    else if (k > 4) pValueList[index].Add($"x = {-3 + k}: {result.Item1[k]}");
-                                    else pValueList[index].Add($"x = 1: {result.Item1[k]}");
-                                    break;
-
-                                case 14:
-                                    if (k < 9) pValueList[index].Add($"x = {-9 + k}: {result.Item1[k]}");
-                                    else if (k > 9) pValueList[index].Add($"x = {-8 + k}: {result.Item1[k]}");
-                                    else pValueList[index].Add($"x = 1: {result.Item1[k]}");
-                                    break;
-
-                                default:
-                                    pValueList[index].Add(result.Item1[k].ToString());
-                                    break;
-                            }
-                        }
-                        ValueTestProgress++;
-                    });
+                    testNIST.Add(FactoryGetter.GetFactory(i).GetTestNIST());
+                    indexTest.Add(i);
                 }
                 else
                 {
-                    background[j] = "White";
+                    background[i] = "White";
                 }
-                j++;
             }
+
+            return indexTest;
         }
 
         private int NumActiveCheck()
@@ -394,6 +414,22 @@ namespace Sequence.ViewModels
                 if (TestChecked[i] == true) countActiveTest++;
             }
             return countActiveTest;
+        }
+
+        private void ChangeActionUI(string visibility)
+        {
+            if (visibility == "Hidden")
+            {
+                VisibilityProgressBar = visibility;
+                WaitingAction = true;
+                ComboBoxSelectedIndex = 0;
+            }
+            else
+            {
+                ValueTestProgress = 0;
+                WaitingAction = false;
+                VisibilityProgressBar = visibility;
+            }
         }
         #endregion
 
@@ -434,13 +470,13 @@ namespace Sequence.ViewModels
                                                       && SequenceParameters._sequenceLength > 0;
         private void OnSaveSequenceExecuted(object p)
         {
-            SaveFileDialog file = new SaveFileDialog();
-            file.Filter = "Text files(*.txt)|*.txt";
-            file.FileName = "Bit Sequense " + Regex.Match(TxtPath, @"(.*)(?=.csv)").Value;
-            file.ShowDialog();
-            if (file.FileName != "")
+            _saveFile = new SaveFileDialog();
+            _saveFile.Filter = "Text files(*.txt)|*.txt";
+            _saveFile.FileName = "Bit Sequense " + Regex.Match(TxtPath, @"(.*)(?=.csv)").Value;
+            _saveFile.ShowDialog();
+            if (_saveFile.FileName != "")
             {
-                using (StreamWriter Save = new StreamWriter(file.FileName))
+                using (StreamWriter Save = new StreamWriter(_saveFile.FileName))
                 {
                     Save.WriteLine(SequenceParameters._sequence);
                     Save.Close();
@@ -487,63 +523,8 @@ namespace Sequence.ViewModels
 
         #endregion
 
-
-        //public string this[string columnName]
-        //{
-        //    get
-        //    {
-        //        string error = String.Empty;
-        //        switch (columnName)
-        //        {
-        //            case nameof(TxtBitADC):
-        //                if (TxtBitADC < 2)
-        //                {
-        //                    error = "Enter an integer starting with 2";
-        //                    isValidatedBitADC = false;
-        //                }
-        //                else
-        //                {
-        //                    isValidatedBitADC = true;
-        //                }
-        //                break;
-        //            case nameof(TxtLSB):
-        //                if (TxtLSB < 1 || TxtLSB > TxtBitADC)
-        //                {
-        //                    error = "Enter an integer between 2 and ADC bit's";
-        //                    isValidatedLSB = false;
-        //                }
-        //                else
-        //                {
-        //                    isValidatedLSB = true;
-        //                }
-        //                break;
-        //            case nameof(TxtTimeShift):
-        //                if (TxtTimeShift < 1)
-        //                {
-        //                    error = "Enter a positive integer";
-        //                    isValidatedTimeShift = false;
-        //                }
-        //                else
-        //                {
-        //                    isValidatedTimeShift = true;
-        //                }
-        //                break;
-        //            case nameof(TxtTimeSeries):
-        //                if (TxtTimeSeries < 1 && IsCustomTime)
-        //                {
-        //                    error = "Enter a positive integer";
-        //                    isValidatedTimeSeries = false;
-        //                }
-        //                else
-        //                {
-        //                    isValidatedTimeSeries = true;
-        //                }
-        //                break;
-        //        }
-        //        return error;
-        //    }
-        //}
-
+        ///////////////////////////////////////
+        
         public string this[string columnName]
         {
             get
@@ -576,7 +557,7 @@ namespace Sequence.ViewModels
                         }
                         break;
                     case nameof(TxtTimeShift):
-                        if (int.TryParse(TxtTimeShift, out var valShift) && valShift >= 1)
+                        if (int.TryParse(TxtTimeShift, out var valShift) && valShift >= 0)
                         {
                             _isValidatedTimeShift = true;
                         }
@@ -603,12 +584,5 @@ namespace Sequence.ViewModels
         }
 
         public string Error => string.Empty;
-
-        //{
-        //    get
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
     }
 }

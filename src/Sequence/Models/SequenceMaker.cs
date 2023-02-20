@@ -52,8 +52,8 @@ namespace Sequence.Models
             int intensityListCount = intensityList.Count;
 
             int indexStartUnshifted = 0;
-            int indexStartShifted = Math.Abs((int)Math.Truncate(Convert.ToDouble(inputModel.TimeShift) / deltaTime) - 1);
-            int indexCount = inputModel.IsCustomTimeSeries ? ((int)Math.Truncate(Convert.ToDouble(inputModel.TimeSeries - inputModel.TimeShift) / deltaTime) - 1) : (intensityListCount - indexStartShifted);
+            int indexStartShifted = Math.Abs((int)(Convert.ToDouble(inputModel.TimeShift) / deltaTime) - 1);
+            int indexCount = inputModel.IsCustomTimeSeries ? ((int)(Convert.ToDouble(inputModel.TimeSeries - inputModel.TimeShift) / deltaTime) - 1) : (intensityListCount - indexStartShifted);
 
             if (intensityListCount < (indexStartShifted + indexCount))
             {
@@ -101,7 +101,6 @@ namespace Sequence.Models
 
         public bool ReadTimeSeries(StreamReader read, ref List<double> intensityList, ref double deltaTime)
         {
-            //List<double> intensityList = new List<double>();
             string line;
             string[] lineArray = new string[2];
             double[] timeArray = new double[2];
@@ -127,57 +126,6 @@ namespace Sequence.Models
 
             deltaTime = Math.Abs((timeArray[0] - timeArray[1]) * Math.Pow(10, 9));
             return true;
-
-
-
-
-            //int intensityListCount = intensityList.Count;
-            ////double deltaTime = Math.Abs((timeArray[0] - timeArray[1]) * Math.Pow(10, 9));
-
-            //int indexStartUnshifted = 0;
-            //int indexStartShifted = (int)Math.Truncate(Convert.ToDouble(inputModel.TimeShift) / deltaTime) - 1;
-            //int indexCount = inputModel.IsCustomTimeSeries? ((int)Math.Truncate(Convert.ToDouble(inputModel.TimeSeries - inputModel.TimeShift) / deltaTime) - 1) : (intensityListCount - indexStartShifted);
-
-            //if (intensityListCount < (indexStartShifted + indexCount))
-            //{
-            //    MessageBox.Show("Reduce the length of the time series or time shift",
-            //                    "Invalid input",
-            //                    MessageBoxButton.OK,
-            //                    MessageBoxImage.Error);
-            //    return false;
-            //}
-
-            //double[] unshiftedArray = new double[indexCount];
-            //double[] shiftedArray = new double[indexCount];
-
-            //CutArray(indexStartUnshifted, indexCount, ref intensityList, ref unshiftedArray);
-            //CutArray(indexStartShifted, indexCount, ref intensityList, ref shiftedArray);
-
-            //NormalizeArray(ref unshiftedArray);
-            //NormalizeArray(ref shiftedArray);
-
-            //int[] discreteUnshiftedArray = new int[indexCount];
-            //int[] discreteShiftedArray = new int[indexCount];
-
-            //DiscretizeАrray(ref discreteUnshiftedArray, ref unshiftedArray);
-            //DiscretizeАrray(ref discreteShiftedArray, ref shiftedArray);
-
-            //MakeSequence(ref discreteUnshiftedArray, ref discreteShiftedArray, indexCount);
-            //SequenceParameters._sequenceLength = SequenceParameters._sequence.Length;
-
-            //MessageBox.Show($"intCount = {intensityList.Count},\n indexStartUnshifted = {indexStartUnshifted},\n indexStartShifted = {indexStartShifted},\n Shift = {indexStartShifted*deltaTime},\n indexCount = {indexCount}\n TimeLength = {indexCount*deltaTime}");
-
-            //double timeSeriesLength;
-            //if (inputModel.IsCustomTimeSeries)
-            //{
-            //    timeSeriesLength = inputModel.TimeSeries + 2 * inputModel.TimeShift;
-            //}
-            //else
-            //{
-            //    timeSeriesLength = deltaTime * (intensityList.Count - 1);
-            //}
-
-            //return true;
         }
 
         //Создание последовательности с помощью операции XOR
@@ -240,65 +188,5 @@ namespace Sequence.Models
                 j++;
             }
         }
-
-        //public bool GetSequence()
-        //{
-        //    if (selectedIndex == 0)
-        //    {
-        //        string[] dataCSVArray = File.ReadAllLines(inputModel.Path);
-        //        intensity = new double[dataCSVArray.Length];
-
-        //        string[] lineArray = new string[2];
-        //        double[] timeArray = new double[2];
-        //        int i = 0;
-        //        foreach (string line in dataCSVArray)
-        //        {
-        //            if (!Regex.IsMatch(line, @"^[0-9E\-,.]+$"))
-        //            {
-        //                MessageBox.Show("The file must contain only the time series",
-        //                                "Invalid file content",
-        //                                MessageBoxButton.OK,
-        //                                MessageBoxImage.Error);
-        //                return false;
-        //            }
-        //            lineArray = line.Split(',');
-        //            intensity[i] = double.Parse(lineArray[1].Replace('.', ','));
-        //            if (i < 2)
-        //                timeArray[i] = double.Parse(lineArray[0].Replace('.', ','));
-        //            i++;
-        //        }
-        //        double deltaTime = Math.Abs((timeArray[0] - timeArray[1]) * Math.Pow(10, 9));
-
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        try
-        //        {
-        //            using (StreamReader read = new StreamReader(inputModel.Path))
-        //            {
-        //                SequenceParameters._sequence = read.ReadLine();
-        //                if (SequenceParameters._sequence == null || !Regex.IsMatch(SequenceParameters._sequence, @"^[0-1]+$"))
-        //                {
-        //                    MessageBox.Show("The file must contain only the bit sequence",
-        //                                    "Invalid file content",
-        //                                    MessageBoxButton.OK,
-        //                                    MessageBoxImage.Error);
-        //                    return false;
-        //                }
-        //                SequenceParameters._sequenceLength = SequenceParameters._sequence.Length;
-        //                return true;
-        //            }
-        //        }
-        //        catch (FileNotFoundException ex)
-        //        {
-        //            MessageBox.Show(ex.Message,
-        //                            "File not found",
-        //                            MessageBoxButton.OK,
-        //                            MessageBoxImage.Error);
-        //            return false;
-        //        }
-        //    }
-        //}
     }
 }
